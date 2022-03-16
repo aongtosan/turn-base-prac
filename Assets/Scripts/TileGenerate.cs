@@ -10,8 +10,12 @@ public class TileGenerate : MonoBehaviour
     [SerializeField]
     int width;
     [SerializeField]
+    int height;
+    [SerializeField]
     int depth;
-    GameObject terrain;
+  
+    private GameObject terrain;
+
     private void Awake()
     {
         terrain = new GameObject("Terrain");
@@ -33,7 +37,9 @@ public class TileGenerate : MonoBehaviour
                 tile.transform.SetParent(row.transform);
                 tile.transform.localPosition = new Vector3(j, 0, 0);
                 tile = Instantiate(tilePrefabs, tile.transform);
-                             
+                TileController setWalkable = tile.GetComponent<TileController>();
+                //setWalkable.IsWalkAble = Random.Range(0,2) == 1 ? true : false ;
+               
             }
         }
         terrain.transform.Translate(-(width / 2), terrain.transform.position.y, depth / 2);
