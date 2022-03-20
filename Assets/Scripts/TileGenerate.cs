@@ -15,6 +15,8 @@ public class TileGenerate : MonoBehaviour
     int height;
     [SerializeField]
     int hillPercentage;
+    [SerializeField]
+    int treasurePile;
   
     private GameObject terrain;
     private List<GameObject> tileList;
@@ -29,10 +31,10 @@ public class TileGenerate : MonoBehaviour
 
     void Start()
     {
-        createHillTile(width, depth, height,hillPercentage);
+        createHillTile(width, depth, height,hillPercentage,treasurePile);
        
     }
-    void createHillTile(int widht,int depth,int limitHeight,int percentageHill)
+    void createHillTile(int widht,int depth,int limitHeight,int percentageHill,int treasureCount)
     {
         for (int i = 0; i < depth; i++)
         {
@@ -45,6 +47,7 @@ public class TileGenerate : MonoBehaviour
                int tileHeight = Random.Range(0, limitHeight);
                int ratio = Random.Range(0,101);
                tileHeight = 100 - percentageHill < ratio ? tileHeight : 0;
+               int tresholdTreasureTile = widht * (depth / 2);
                 for (int w = 0; w <= tileHeight; w++)
                 {
                     GameObject tile = new GameObject();
@@ -55,8 +58,23 @@ public class TileGenerate : MonoBehaviour
                     
                    TileController tileProfile = tile.GetComponent<TileController>();
                    tileProfile.Heightlvl = w;
-                   tileProfile.IsWalkAble = w<tileHeight? false:true;
-                    tileProfile.IsReachAble = tileProfile.IsWalkAble ? tileProfile.IsWalkAble : false;
+                   tileProfile.IsWalkAble = w < tileHeight? false:true;
+                   tileProfile.IsReachAble = tileProfile.IsWalkAble ? tileProfile.IsWalkAble : false;
+                   if (tileProfile.IsReachAble)
+                    {
+                        if(Random.Range(0,10) % 9 == 0 && treasureCount > 0 && tresholdTreasureTile == (widht*(depth/2)))
+                        {
+                            tileProfile.IsContainItem = true;
+                            treasureCount--;
+                            tresholdTreasureTile = 0;
+                        }
+                        else
+                        {
+                            tileProfile.IsContainItem = false;
+                            tresholdTreasureTile++;
+                        }
+                    }
+                   
                 }
 
             }
