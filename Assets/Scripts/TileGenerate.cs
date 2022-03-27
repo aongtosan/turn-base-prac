@@ -82,7 +82,7 @@ public class TileGenerate : MonoBehaviour
                     tile = Instantiate(tilePrefabs, tile.transform);
                     
                     TileController tileProfile = tile.GetComponent<TileController>();
-                    tileProfile.TileId = w<tileHeight ?  "Not Reachable" : string.Format(ID_PATTERN_TILE, i, j);
+                    tileProfile.TileId = w<tileHeight ?  NOT_REACHABLE : string.Format(ID_PATTERN_TILE, i, j);
                     tileProfile.Heightlvl = w;
                     tileProfile.IsWalkAble = w == tileHeight;
                     tileProfile.IsCursorSelect = false;
