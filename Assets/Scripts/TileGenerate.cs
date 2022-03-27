@@ -44,16 +44,6 @@ public class TileGenerate : MonoBehaviour
         TileController initCursorLocBlock = tileMap[string.Format(ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>();
 
         intiCursorPosition(initCursorLoc,initCursorLocBlock);
-        //intiCursorPosition(initCursorLoc);
-
-        //cursorMove();
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < depth; j++)
-            {
-                Debug.Log(tileMap[string.Format(ID_PATTERN_TILE, i, j)].GetComponent<TileController>().TileId);
-            }
-        }
     }
 
     void cursorMove(Transform changeTile, TileController currtileBlock, TileController nexttileBlock)
@@ -81,7 +71,7 @@ public class TileGenerate : MonoBehaviour
             {
                int tileHeight = Random.Range(0, limitHeight);
                int ratio = Random.Range(0,101);
-               tileHeight = 100 - percentageHill < ratio ? Random.Range(1, tileHeight+1) : 0;// random height hill
+               tileHeight = 100 - percentageHill < ratio ? tileHeight : 0;// random height hill
                //int tresholdTreasureTile = widht * (depth / 2);
                 for (int w = 0; w <= tileHeight; w++) // height y
                 {
