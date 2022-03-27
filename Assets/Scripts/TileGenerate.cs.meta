@@ -5,6 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - tilePrefabs: {fileID: 450982097638936194, guid: c31b69c8b55b2684a9bafd9c1fbb5459, type: 3}
+  - cursorPrefabs: {fileID: 919132149155446097, guid: c0907f18e8d72b044955a74336a9e554, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
