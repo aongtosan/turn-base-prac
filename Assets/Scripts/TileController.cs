@@ -8,6 +8,7 @@ public class TileController : MonoBehaviour
     bool isWalkAble;
     bool isContainItem;
     bool isCursorSelect;
+    bool isCursorHover;
 
     [SerializeField]
     GameObject chestPrefab;
@@ -26,29 +27,36 @@ public class TileController : MonoBehaviour
         {
             tileColor.color = new Color32(253, 166, 76, 1);
         }
-        if (isWalkAble)
-        {   
-            tileColor.color = new Color32(41, 81, 243,1);
-        }
-        else if(tileId.Contains(NOT_REACHABLE))
-        {
-            tileColor.color = Color.red;
-        }
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isContainItem)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = new Color32(253, 166, 76, 1);
+        }
+        if (isCursorHover)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = new Color32(41, 81, 243, 1);
+        }
+        else if (!isCursorHover)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = Color.white;
+        }
         if (isCursorSelect)
         {
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = Color.green;
         }
-        else if (!isCursorSelect)
+        if (tileId.Contains(NOT_REACHABLE))
         {
             Material tileColor = GetComponent<Renderer>().material;
-            tileColor.color = new Color32(41, 81, 243, 1);
+            tileColor.color = Color.red;
         }
     }
     public void generateTreasure(GameObject treasure)
@@ -76,6 +84,11 @@ public class TileController : MonoBehaviour
     {
         get { return isCursorSelect; }
         set { isCursorSelect = value; }
+    }
+    public bool IsCursorHover
+    {
+        get { return isCursorHover; }
+        set { isCursorHover = value; }
     }
     public int Heightlvl
     {

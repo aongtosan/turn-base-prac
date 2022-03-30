@@ -32,6 +32,14 @@ public class TileGenerate : MonoBehaviour
     private GameObject terrain;
     private Dictionary<string,GameObject> tileMap;
 
+    public enum DIRECTIONS
+    {
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT
+    }
+
     private void Awake()
     {
         terrain = new GameObject(BASE_PLANE_NAME);
@@ -40,23 +48,64 @@ public class TileGenerate : MonoBehaviour
         tileMap = new Dictionary<string, GameObject>();
         
         createHillTile(width, depth, height, hillPercentage, treasurePile);
+        
         Transform initCursorLoc = tileMap[string.Format(ID_PATTERN_TILE, 0, 0)].transform.parent;
         TileController initCursorLocBlock = tileMap[string.Format(ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>();
 
         intiCursorPosition(initCursorLoc,initCursorLocBlock);
     }
 
-    void cursorMove(Dictionary<string, GameObject> allTiles, int positionXOld,int positionYOld,int positionXNew,int positionYnews)
+    CursorController cursorMove(CursorController currCursorPosition,DIRECTIONS dir)
     {
-    }
+      
+        if (dir == DIRECTIONS.UP)
+        {
+            if(currCursorPosition.PositionX+1 <= width-1)
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX + 1, currCursorPosition.PositionY)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+            
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX + 1, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = true;
+
+                currCursorPosition.PositionX++;
+               
+            }
+            else
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, 0, currCursorPosition.PositionY)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+                tileMap[string.Format(ID_PATTERN_TILE, 0, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = true;
+                currCursorPosition.PositionX = 0;
+
+
+            }
+        }
+        else if (dir == DIRECTIONS.DOWN)
+        {
+           
+        }
+        else if (dir == DIRECTIONS.RIGHT)
+        {
+           
+        }
+        else if (dir == DIRECTIONS.LEFT)
+        {
+           
+        }
+        return currCursorPosition;
+    }   
     void intiCursorPosition(Transform position,TileController tileBlock)
     {
         cursor = new GameObject(CURSOR);
         cursor.transform.SetParent(position);
         cursor.transform.localPosition = new Vector3(0, 3f, 0);
         cursor = Instantiate(cursorPrefabs, cursor.transform);
-        tileBlock.IsCursorSelect = true;
-        Debug.Log("selected tile => "+tileBlock.TileId);
+        tileBlock.IsCursorHover = true;
+        cursor.GetComponent<CursorController>().PositionX = 0;
+        cursor.GetComponent<CursorController>().PositionY = 0;
     }
     void createHillTile(int widht,int depth,int limitHeight,int percentageHill,int treasureCount)
     {
@@ -93,30 +142,45 @@ public class TileGenerate : MonoBehaviour
             }
         }
         //fix treasure pile
-
+        for(int i  = 0;i < treasureCount; i++)
+        {
+            int xPosition = Random.Range(0, widht - 1);
+            int yPosition = Random.Range(0, depth - 1);
+            if(!tileMap[string.Format(ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsContainItem) 
+                tileMap[string.Format(ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsContainItem = true;
+            else
+            {
+                i--;
+            }
+        }
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Up position");
-            tileMap[string.Format(ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsCursorSelect = false;
-            cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, 0, 1)].transform);
-            cursor.transform.localPosition = new Vector3(0, 3f, 0);
-            tileMap[string.Format(ID_PATTERN_TILE, 0, 1)].GetComponent<TileController>().IsCursorSelect = true;
+            cursor.GetComponent<CursorController>().PositionX  = cursorMove(cursor.GetComponent<CursorController>(),DIRECTIONS.UP).PositionX;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("Down position");
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("Left position");
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             Debug.Log("Right position");
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            int xPosition = cursor.GetComponent<CursorController>().PositionX;
+            int yPosition = cursor.GetComponent<CursorController>().PositionY;
+
+            tileMap[string.Format(ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsCursorHover = false;
+            tileMap[string.Format(ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsCursorSelect = true;
         }
     }
 }
