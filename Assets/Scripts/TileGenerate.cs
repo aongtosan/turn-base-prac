@@ -27,10 +27,10 @@ public class TileGenerate : MonoBehaviour
     const string BASE_PLANE_NAME = "BASE";
     const string NOT_REACHABLE = "Not Reachable";
     const string CURSOR = "Cursor";
-
+    
+    private GameObject cursor;
     private GameObject terrain;
     private Dictionary<string,GameObject> tileMap;
-    List<GameObject> tileList;
 
     private void Awake()
     {
@@ -46,13 +46,12 @@ public class TileGenerate : MonoBehaviour
         intiCursorPosition(initCursorLoc,initCursorLocBlock);
     }
 
-    void cursorMove(Transform changeTile, TileController currtileBlock, TileController nexttileBlock)
+    void cursorMove(Dictionary<string, GameObject> allTiles, int positionXOld,int positionYOld,int positionXNew,int positionYnews)
     {
-       
     }
     void intiCursorPosition(Transform position,TileController tileBlock)
     {
-        GameObject cursor = new GameObject(CURSOR);
+        cursor = new GameObject(CURSOR);
         cursor.transform.SetParent(position);
         cursor.transform.localPosition = new Vector3(0, 3f, 0);
         cursor = Instantiate(cursorPrefabs, cursor.transform);
@@ -93,10 +92,31 @@ public class TileGenerate : MonoBehaviour
 
             }
         }
+        //fix treasure pile
+
     }
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.W))
+        {
+            Debug.Log("Up position");
+            tileMap[string.Format(ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsCursorSelect = false;
+            cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, 0, 1)].transform);
+            cursor.transform.localPosition = new Vector3(0, 3f, 0);
+            tileMap[string.Format(ID_PATTERN_TILE, 0, 1)].GetComponent<TileController>().IsCursorSelect = true;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            Debug.Log("Down position");
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            Debug.Log("Left position");
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            Debug.Log("Right position");
+        }
     }
 }

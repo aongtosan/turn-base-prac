@@ -158,7 +158,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -5, y: 5, z: -5}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -376,11 +376,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
-  cursorPrefabs: {fileID: 0}
-  width: 3
-  depth: 3
-  height: 2
-  hillPercentage: 40
+  cursorPrefabs: {fileID: 8330475305553318430, guid: e2d9848f57ef8554fb97f9d8afbd6042, type: 3}
+  width: 5
+  depth: 5
+  height: 3
+  hillPercentage: 30
   treasurePile: 1
 --- !u!4 &1421621986
 Transform:

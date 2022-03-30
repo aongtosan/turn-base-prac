@@ -30,10 +30,6 @@ public class TileController : MonoBehaviour
         {   
             tileColor.color = new Color32(41, 81, 243,1);
         }
-        if (isCursorSelect)
-        {
-            tileColor.color = Color.green;
-        }
         else if(tileId.Contains(NOT_REACHABLE))
         {
             tileColor.color = Color.red;
@@ -44,7 +40,16 @@ public class TileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isCursorSelect)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = Color.green;
+        }
+        else if (!isCursorSelect)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = new Color32(41, 81, 243, 1);
+        }
     }
     public void generateTreasure(GameObject treasure)
     {  
