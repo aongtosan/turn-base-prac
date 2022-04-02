@@ -381,7 +381,7 @@ MonoBehaviour:
   depth: 5
   height: 3
   hillPercentage: 30
-  treasurePile: 1
+  treasurePile: 2
 --- !u!4 &1421621986
 Transform:
   m_ObjectHideFlags: 0

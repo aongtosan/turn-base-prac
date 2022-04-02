@@ -85,15 +85,78 @@ public class TileGenerate : MonoBehaviour
         }
         else if (dir == DIRECTIONS.DOWN)
         {
-           
+            if (currCursorPosition.PositionX - 1 >= 0)
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX - 1, currCursorPosition.PositionY)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX - 1, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = true;
+
+                currCursorPosition.PositionX--;
+
+            }
+            else
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, width - 1, currCursorPosition.PositionY)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+                tileMap[string.Format(ID_PATTERN_TILE, width-1, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = true;
+                currCursorPosition.PositionX = width - 1;
+
+
+            }
         }
         else if (dir == DIRECTIONS.RIGHT)
         {
-           
+            if (currCursorPosition.PositionY + 1 <= depth - 1)
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX , currCursorPosition.PositionY+1)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY+1)].GetComponent<TileController>().IsCursorHover = true;
+
+                currCursorPosition.PositionY++;
+
+            }
+            else
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, 0)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, 0)].GetComponent<TileController>().IsCursorHover = true;
+                currCursorPosition.PositionY = 0;
+
+
+            }
         }
         else if (dir == DIRECTIONS.LEFT)
         {
-           
+            if (currCursorPosition.PositionY - 1 >= 0)
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY - 1)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY - 1)].GetComponent<TileController>().IsCursorHover = true;
+
+                currCursorPosition.PositionY--;
+
+            }
+            else
+            {
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, currCursorPosition.PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                cursor.transform.SetParent(tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, depth-1)].transform.parent);
+                cursor.transform.localPosition = new Vector3(0, 3f, 0);
+                tileMap[string.Format(ID_PATTERN_TILE, currCursorPosition.PositionX, depth-1)].GetComponent<TileController>().IsCursorHover = true;
+                currCursorPosition.PositionY = depth - 1;
+
+
+            }
         }
         return currCursorPosition;
     }   
@@ -120,7 +183,6 @@ public class TileGenerate : MonoBehaviour
                int tileHeight = Random.Range(0, limitHeight);
                int ratio = Random.Range(0,101);
                tileHeight = 100 - percentageHill < ratio ? tileHeight : 0;// random height hill
-               //int tresholdTreasureTile = widht * (depth / 2);
                 for (int w = 0; w <= tileHeight; w++) // height y
                 {
                     GameObject tile = new GameObject();
@@ -160,21 +222,25 @@ public class TileGenerate : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            //Move Position Up
             cursor.GetComponent<CursorController>().PositionX  = cursorMove(cursor.GetComponent<CursorController>(),DIRECTIONS.UP).PositionX;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("Down position");
+            //Move Position Down
+            cursor.GetComponent<CursorController>().PositionX = cursorMove(cursor.GetComponent<CursorController>(), DIRECTIONS.DOWN).PositionX;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("Left position");
+            //Move Position Left
+            cursor.GetComponent<CursorController>().PositionY = cursorMove(cursor.GetComponent<CursorController>(), DIRECTIONS.LEFT).PositionY; ;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("Right position");
+            //Move Position Right
+            cursor.GetComponent<CursorController>().PositionY = cursorMove(cursor.GetComponent<CursorController>(), DIRECTIONS.RIGHT).PositionY; ;
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))// Select Tile
         {
             int xPosition = cursor.GetComponent<CursorController>().PositionX;
             int yPosition = cursor.GetComponent<CursorController>().PositionY;
