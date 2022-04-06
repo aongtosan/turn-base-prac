@@ -15,7 +15,7 @@ public class TileController : MonoBehaviour
 
     string tileId;
     int heightlvl;
-    const string NOT_REACHABLE = "Not Reachable";
+   
     void Start()
     {
         if (isContainItem)
@@ -38,7 +38,7 @@ public class TileController : MonoBehaviour
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = new Color32(253, 166, 76, 1);
         }
-        if (isCursorHover)
+        else if (isCursorHover)
         {
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = new Color32(41, 81, 243, 1);
@@ -53,7 +53,7 @@ public class TileController : MonoBehaviour
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = Color.green;
         }
-        if (tileId.Contains(NOT_REACHABLE))
+        if (tileId.Contains(TileEnum.NOT_REACHABLE))
         {
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = Color.red;

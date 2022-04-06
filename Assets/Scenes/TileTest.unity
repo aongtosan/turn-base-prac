@@ -355,7 +355,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1421621986}
-  - component: {fileID: 1421621985}
+  - component: {fileID: 1421621987}
+  - component: {fileID: 1421621988}
+  - component: {fileID: 1421621989}
   m_Layer: 0
   m_Name: PlanePlate
   m_TagString: Untagged
@@ -363,25 +365,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1421621985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421621984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7df4841d68946841b9eab0de907c2de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
-  cursorPrefabs: {fileID: 8330475305553318430, guid: e2d9848f57ef8554fb97f9d8afbd6042, type: 3}
-  width: 5
-  depth: 5
-  height: 3
-  hillPercentage: 30
-  treasurePile: 2
 --- !u!4 &1421621986
 Transform:
   m_ObjectHideFlags: 0
@@ -397,3 +380,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1421621987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0776a7a20a19b354fb80e8a01153ed53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1421621988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7df4841d68946841b9eab0de907c2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
+  width: 6
+  depth: 6
+  height: 3
+  hillPercentage: 30
+  treasurePile: 1
+--- !u!114 &1421621989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cec5c185ac79549bb669d6cb2f5f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorPrefab: {fileID: 8330475305553318430, guid: e2d9848f57ef8554fb97f9d8afbd6042, type: 3}
