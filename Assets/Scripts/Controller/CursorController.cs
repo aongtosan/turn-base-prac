@@ -9,6 +9,7 @@ public class CursorController : MonoBehaviour
     GameObject cursorPrefab;
 
     GameObject cursor;
+    TileController selectedTile = null;
 
     int positionX = 0;
     int positionY = 0;
@@ -139,7 +140,10 @@ public class CursorController : MonoBehaviour
        
         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,0, 0)].GetComponent<TileController>().IsCursorHover = true;
 
-    
-        
       }
+    public TileController SelectedTile
+    {
+        set { selectedTile = value; }
+        get { return selectedTile; }
+    }
 }

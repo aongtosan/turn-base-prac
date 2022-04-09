@@ -40,6 +40,11 @@ public class StateController : MonoBehaviour
         {
             cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
         }
+        else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
+        {
+            cursor.SelectedTile = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX, cursor.PositionY) ].GetComponent<TileController>();
+            cursor.SelectedTile.IsCursorSelect = true;
+        }
     }
     public Dictionary<string, GameObject> TileMap
     {

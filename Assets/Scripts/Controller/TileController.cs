@@ -9,6 +9,8 @@ public class TileController : MonoBehaviour
     bool isContainItem;
     bool isCursorSelect;
     bool isCursorHover;
+    bool isUnitOnTile;
+    GameObject unitOntile;
 
     [SerializeField]
     GameObject chestPrefab;

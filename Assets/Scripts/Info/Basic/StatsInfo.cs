@@ -5,6 +5,7 @@ using UnityEngine;
 public class StatsInfo : MonoBehaviour
 {
     private int level;
+    private string unitName;
     private int strenght;
     private int intelligent;
     private int agility;
@@ -13,6 +14,11 @@ public class StatsInfo : MonoBehaviour
     {
         set { level = value; }
         get { return level; }
+    }
+    public string UnitName
+    {
+        set { unitName = value; }
+        get { return unitName; }
     }
     public int Strength
     {
