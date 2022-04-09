@@ -53,12 +53,12 @@ public class TileController : MonoBehaviour
         if (isCursorSelect)
         {
             Material tileColor = GetComponent<Renderer>().material;
-            tileColor.color = Color.green;
+            tileColor.color = new Color32(60, 179, 113,1);
         }
         if (tileId.Contains(TileEnum.NOT_REACHABLE))
         {
             Material tileColor = GetComponent<Renderer>().material;
-            tileColor.color = Color.red;
+            tileColor.color = Color.black;
         }
     }
     public void generateTreasure(GameObject treasure)
