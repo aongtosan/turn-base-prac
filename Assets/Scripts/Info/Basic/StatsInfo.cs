@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StatsInfo : MonoBehaviour
 {
-    private int level;
-    private string unitName;
-    private int strenght;
-    private int intelligent;
-    private int agility;
+    [SerializeField] int level;
+    [SerializeField] string unitName;
+    [SerializeField] int strenght;
+    [SerializeField] int intelligent;
+    [SerializeField] int agility;
 
     public int Level
     {

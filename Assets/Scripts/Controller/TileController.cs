@@ -67,6 +67,11 @@ public class TileController : MonoBehaviour
         treasure.transform.localPosition = new Vector3(0, 0.5f, 0);
         Instantiate(chestPrefab, treasure.transform);
     }
+    public GameObject UnitOnTile
+    {
+        set { unitOntile = value; }
+        get { return unitOntile; }
+    }
     public string TileId
     {
         get{ return tileId; }
@@ -91,6 +96,11 @@ public class TileController : MonoBehaviour
     {
         get { return isCursorHover; }
         set { isCursorHover = value; }
+    }
+    public bool IsUnitOnTile
+    {
+        get { return isUnitOnTile; }
+        set { isUnitOnTile = value; }
     }
     public int Heightlvl
     {

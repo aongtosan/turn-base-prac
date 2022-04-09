@@ -13,37 +13,62 @@ public class StateController : MonoBehaviour
     private CursorController cursor;
    [SerializeField]
     TileGenerate tileMapData;
+   
+   [SerializeField] 
+    List<GameObject> playerUnitsPrefabs;
+
+    GameObject unit;
 
     private void Start()
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
         cursor.intiCursorPosition(tileMapData.getMapInfo());
+
+
+        unit = new GameObject("Unit1");
+        unit.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].transform.parent);
+        unit.transform.localPosition = new Vector3(0, .75f, 0);
+        unit = Instantiate(playerUnitsPrefabs[0], unit.transform);
+
+        tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsUnitOnTile = true;
     }
 
    
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W)) // UP
+        if (cursor.SelectedTile == null)
         {
-            cursor.cursorMove(tileMap ,tileMapData.width,tileMapData.depth,DirectionEnum.DIRECTIONS.UP);
+            if (Input.GetKeyDown(KeyCode.W)) // UP
+            {
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.UP);
+            }
+            else if (Input.GetKeyDown(KeyCode.S)) //DOWN
+            {
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.DOWN);
+            }
+            else if (Input.GetKeyDown(KeyCode.D)) //RIGHT
+            {
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.RIGHT);
+            }
+            else if (Input.GetKeyDown(KeyCode.A)) //LEFT
+            {
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.S)) //DOWN
-        {
-            cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.DOWN);
-        }
-        else if (Input.GetKeyDown(KeyCode.D)) //RIGHT
-        {
-            cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.RIGHT);
-        }
-        else if (Input.GetKeyDown(KeyCode.A)) //LEFT
-        {
-            cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
+         if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
         {
             cursor.SelectedTile = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX, cursor.PositionY) ].GetComponent<TileController>();
             cursor.SelectedTile.IsCursorSelect = true;
+            if (cursor.SelectedTile.IsUnitOnTile)
+            {
+
+            }
+            else
+            {
+                cursor.SelectedTile.IsCursorSelect = false;
+                cursor.SelectedTile = null;
+            }
         }
     }
     public Dictionary<string, GameObject> TileMap

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitController : StatsInfo
 {
     // Start is called before the first frame update
+    [SerializeField] int move;
     void Start()
     {
         
@@ -14,5 +15,10 @@ public class UnitController : StatsInfo
     void Update()
     {
         
+    }
+    public int Move
+    {
+        get { return move; }
+        set { move = value; }
     }
 }
