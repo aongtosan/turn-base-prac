@@ -29,7 +29,9 @@ public class StateController : MonoBehaviour
         unit.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].transform.parent);
         unit.transform.localPosition = new Vector3(0, .75f, 0);
         unit = Instantiate(playerUnitsPrefabs[0], unit.transform);
-
+        unit.GetComponent<UnitController>().PositionX = 0;
+        unit.GetComponent<UnitController>().PositionY = 0;
+        
         tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsUnitOnTile = true;
     }
 
@@ -62,7 +64,8 @@ public class StateController : MonoBehaviour
             cursor.SelectedTile.IsCursorSelect = true;
             if (cursor.SelectedTile.IsUnitOnTile)
             {
-
+                UnitController selectedUnit = unit.GetComponent<UnitController>();
+                selectedUnit.findMovableTile(tileMap,tileMapData.width,tileMapData.depth,selectedUnit.PositionX,selectedUnit.PositionY);
             }
             else
             {

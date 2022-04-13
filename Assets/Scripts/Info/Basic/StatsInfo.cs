@@ -10,6 +10,24 @@ public class StatsInfo : MonoBehaviour
     [SerializeField] int intelligent;
     [SerializeField] int agility;
 
+    [SerializeField] STATUS status;
+    [SerializeField] ABNORMAL_STATUS abnormalStatus;
+    public enum STATUS{
+        HEALTHY,
+        INJURED,
+        ABNORMAL,
+        DEATH
+    }
+    public enum ABNORMAL_STATUS{
+        NONE,
+        PARALYSE,
+        POISONED,
+        BURN,
+        FROSTBITE,
+        BREEDING,
+        CONFUSED,
+        BLIND
+    }
     public int Level
     {
         set { level = value; }
