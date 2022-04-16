@@ -25,110 +25,66 @@ public class CursorController : MonoBehaviour
         set { positionY = value; }
     }
 
-    public void cursorMove(Dictionary<string,GameObject> tileMap, int maxWidth,int maxDepth, DirectionEnum.DIRECTIONS dir)
+    public void cursorMove(Dictionary<string,GameObject> tileMap, int maxWidth,int maxDepth,DirectionEnum.DIRECTIONS dir)
       {
+          int currentPositionX = PositionX;
+          int currentPositionY = PositionY;
 
-          if (dir == DirectionEnum.DIRECTIONS.UP)
-          {
-              if ( PositionX + 1 <= maxWidth - 1)
+          PositionX += dir == DirectionEnum.DIRECTIONS.UP ? 1 :  dir == DirectionEnum.DIRECTIONS.DOWN ? -1 : 0;
+          PositionY += dir == DirectionEnum.DIRECTIONS.RIGHT ? 1 :  dir == DirectionEnum.DIRECTIONS.LEFT ? -1 : 0;
+          
+          if(dir == DirectionEnum.DIRECTIONS.UP || dir == DirectionEnum.DIRECTIONS.DOWN){
+                if ( PositionX  <= maxWidth - 1  && PositionX >= 0)
               {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  currentPositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
 
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX + 1,  PositionY)].transform.parent);
+                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].transform.parent);
                   cursor.transform.localPosition = new Vector3(0, 3f, 0);
 
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX + 1,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
-
-                   PositionX++;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
 
               }
-              else
+              else if(PositionX < 0 || PositionX > maxWidth - 1 )
               {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  currentPositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
                   cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0,  PositionY)].transform.parent);
                   cursor.transform.localPosition = new Vector3(0, 3f, 0);
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
-                   PositionX = 0;
 
+                  int overflowIndexX = PositionX < 0 ? maxWidth - 1 : 0;  
+                  PositionX = overflowIndexX;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE, overflowIndexX,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
+                
 
               }
-          }
-          else if (dir == DirectionEnum.DIRECTIONS.DOWN)
-          {
-              if ( PositionX - 1 >= 0)
+        }else{
+            if ( PositionY <= maxDepth - 1 && PositionY >= 0)
               {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  currentPositionY)].GetComponent<TileController>().IsCursorHover = false;
 
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX - 1,  PositionY)].transform.parent);
+                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].transform.parent);
                   cursor.transform.localPosition = new Vector3(0, 3f, 0);
 
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX - 1,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
-
-                   PositionX--;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
 
               }
-              else
+              else if(PositionY < 0 || PositionY > maxDepth -1)
               {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, maxWidth - 1,  PositionY)].transform.parent);
-                  cursor.transform.localPosition = new Vector3(0, 3f, 0);
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE, maxWidth - 1,  PositionY)].GetComponent<TileController>().IsCursorHover = true;
-                   PositionX = maxWidth - 1;
-
-
-              }
-          }
-          else if (dir == DirectionEnum.DIRECTIONS.RIGHT)
-          {
-              if ( PositionY + 1 <= maxDepth - 1)
-              {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
-
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY + 1)].transform.parent);
-                  cursor.transform.localPosition = new Vector3(0, 3f, 0);
-
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY + 1)].GetComponent<TileController>().IsCursorHover = true;
-
-                   PositionY++;
-
-              }
-              else
-              {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  currentPositionY)].GetComponent<TileController>().IsCursorHover = false;
                   cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX, 0)].transform.parent);
                   cursor.transform.localPosition = new Vector3(0, 3f, 0);
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX, 0)].GetComponent<TileController>().IsCursorHover = true;
-                   PositionY = 0;
 
+                  int overflowIndexY = PositionY < 0 ? maxDepth - 1 : 0; 
+                  PositionY = overflowIndexY;
 
+                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX, overflowIndexY)].GetComponent<TileController>().IsCursorHover = true;
+                  
               }
-          }
-          else if (dir == DirectionEnum.DIRECTIONS.LEFT)
-          {
-              if ( PositionY - 1 >= 0)
-              {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
 
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY - 1)].transform.parent);
-                  cursor.transform.localPosition = new Vector3(0, 3f, 0);
-
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY - 1)].GetComponent<TileController>().IsCursorHover = true;
-
-                   PositionY--;
-
-              }
-              else
-              {
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
-                  cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX, maxDepth - 1)].transform.parent);
-                  cursor.transform.localPosition = new Vector3(0, 3f, 0);
-                  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  PositionX, maxDepth - 1)].GetComponent<TileController>().IsCursorHover = true;
-                   PositionY = maxDepth - 1;
-
-
-              }
-          }
+        }
           
+      }
+      private bool isMoveCusorWhileSelectUnit(){
+          return selectedTile == null ? false : true;
       }
       public void intiCursorPosition(Dictionary<string,GameObject> tileMap)
       {

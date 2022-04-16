@@ -39,8 +39,7 @@ public class StateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cursor.SelectedTile == null)
-        {
+        
             if (Input.GetKeyDown(KeyCode.W)) // UP
             {
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.UP);
@@ -57,7 +56,7 @@ public class StateController : MonoBehaviour
             {
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
             }
-        }
+        
          if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
         {
             cursor.SelectedTile = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX, cursor.PositionY) ].GetComponent<TileController>();

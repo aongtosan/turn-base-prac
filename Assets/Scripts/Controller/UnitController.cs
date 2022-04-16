@@ -28,8 +28,10 @@ public class UnitController : StatsInfo
         // tilemap[string.Format(TileEnum.ID_PATTERN_TILE,unitPositionX,unitPositionY+1)].GetComponent<TileController>().IsCursorHover = true;
         // tilemap[string.Format(TileEnum.ID_PATTERN_TILE,unitPositionX+1,unitPositionY)].GetComponent<TileController>().IsCursorHover = true;
         for(int i=0;i<move;i++){
-            for(int j=0;j<move;j++){
-
+            for(int j=1;j<=move;j++){
+                if(j+unitPositionY<tileDepth){
+                    tilemap[string.Format(TileEnum.ID_PATTERN_TILE,unitPositionX,unitPositionY+j)].GetComponent<TileController>().IsCursorHover = true;
+                }
             }
         }
         return movableTile;
