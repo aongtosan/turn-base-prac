@@ -14,32 +14,19 @@ public class StateController : MonoBehaviour
    [SerializeField]
     TileGenerate tileMapData;
    
-   [SerializeField] 
-    List<GameObject> playerUnitsPrefabs;
-
-    GameObject unit;
 
     private void Start()
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
-        cursor.intiCursorPosition(tileMapData.getMapInfo());
+        cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
+        GetComponent<UnitController>().initUnitPositionTile(tileMap,0,0);
 
-
-        unit = new GameObject("Unit1");
-        unit.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].transform.parent);
-        unit.transform.localPosition = new Vector3(0, .75f, 0);
-        unit = Instantiate(playerUnitsPrefabs[0], unit.transform);
-        unit.GetComponent<UnitController>().PositionX = 0;
-        unit.GetComponent<UnitController>().PositionY = 0;
-        
-        tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsUnitOnTile = true;
+        //initUnitPositionTile();
     }
 
-   
-    // Update is called once per frame
-    void Update()
-    {
-        
+ 
+
+    void cursorHandler(){
             if (Input.GetKeyDown(KeyCode.W)) // UP
             {
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.UP);
@@ -59,19 +46,16 @@ public class StateController : MonoBehaviour
         
          if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
         {
-            cursor.SelectedTile = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX, cursor.PositionY) ].GetComponent<TileController>();
-            cursor.SelectedTile.IsCursorSelect = true;
-            if (cursor.SelectedTile.IsUnitOnTile)
-            {
-                UnitController selectedUnit = unit.GetComponent<UnitController>();
-                selectedUnit.findMovableTile(tileMap,tileMapData.width,tileMapData.depth,selectedUnit.PositionX,selectedUnit.PositionY);
-            }
-            else
-            {
-                cursor.SelectedTile.IsCursorSelect = false;
-                cursor.SelectedTile = null;
-            }
+            cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
+            TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
+        
+
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        cursorHandler();
     }
     public Dictionary<string, GameObject> TileMap
     {

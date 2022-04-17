@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - chestPrefab: {fileID: 450982097638936194, guid: c31b69c8b55b2684a9bafd9c1fbb5459, type: 3}
-  executionOrder: 0
+  executionOrder: -10
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

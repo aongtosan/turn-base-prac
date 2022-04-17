@@ -10,6 +10,7 @@ public class CursorController : MonoBehaviour
 
     GameObject cursor;
     TileController selectedTile = null;
+    UnitController selectedUnit = null;
 
     int positionX = 0;
     int positionY = 0;
@@ -86,11 +87,12 @@ public class CursorController : MonoBehaviour
       private bool isMoveCusorWhileSelectUnit(){
           return selectedTile == null ? false : true;
       }
-      public void intiCursorPosition(Dictionary<string,GameObject> tileMap)
+      public void intiCursorPosition(Dictionary<string,GameObject> tileMap,int initpositionX,int initpositionY)
       {
 
         cursor = new GameObject("CURSOR");
-        cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].transform.parent);
+        cursor.tag = "Cursor";
+        cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, initpositionX, initpositionY)].transform.parent);
         cursor.transform.localPosition = new Vector3(0, 3f, 0);
         cursor = Instantiate(cursorPrefab, cursor.transform);
        
@@ -101,5 +103,10 @@ public class CursorController : MonoBehaviour
     {
         set { selectedTile = value; }
         get { return selectedTile; }
+    }
+    public UnitController SelectedUnit
+    {
+        set { selectedUnit = value; }
+        get { return selectedUnit; }
     }
 }
