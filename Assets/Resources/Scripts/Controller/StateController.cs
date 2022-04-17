@@ -14,14 +14,14 @@ public class StateController : MonoBehaviour
    [SerializeField]
     TileGenerate tileMapData;
    
+    UnitController unit;
 
     private void Start()
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
-        GetComponent<UnitController>().initUnitPositionTile(tileMap,0,0);
-
-        //initUnitPositionTile();
+        unit = GetComponent<UnitController>();
+        unit.initUnitPositionTile(tileMap,0,0);
     }
 
  
@@ -42,15 +42,12 @@ public class StateController : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.A)) //LEFT
             {
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
+            }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
+            {
+                cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
+                TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
+                unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
             }
-        
-         if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
-        {
-            cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
-            TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
-        
-
-        }
     }
     // Update is called once per frame
     void Update()
