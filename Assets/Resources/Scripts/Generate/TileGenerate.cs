@@ -78,7 +78,10 @@ public class TileGenerate : MonoBehaviour
         {
             int xPosition = Random.Range(0, widht - 1);
             int yPosition = Random.Range(0, depth - 1);
-            if(!tileState[string.Format(TileEnum.ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsContainItem) 
+            if( !tileState[string.Format(TileEnum.ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsContainItem 
+            && 
+                !tileState[string.Format(TileEnum.ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsUnitOnTile 
+             ) 
                 tileState[string.Format(TileEnum.ID_PATTERN_TILE, xPosition, yPosition)].GetComponent<TileController>().IsContainItem = true;
             else
             {
@@ -92,13 +95,5 @@ public class TileGenerate : MonoBehaviour
      public Dictionary<string, GameObject> getMapInfo()
     {
         return tileMap;
-    }
-    public int Depth()
-    {
-        return depth;
-    }
-    public int Width()
-    {
-        return width;
     }
 }
