@@ -41,7 +41,8 @@ public class TileController : MonoBehaviour
             tileColor.color = new Color32(253, 166, 76, 1);
         }
         else if(isWalkAble){
-
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = new Color32(0, 105, 148,1);
         }
         else if (isCursorHover)
         {

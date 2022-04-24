@@ -46,7 +46,18 @@ public class StateController : MonoBehaviour
             {
                 cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
                 TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
-                unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
+                if(cursor.SelectedTile.IsUnitOnTile){
+                    cursor.SelectedUnit = unit;
+                    unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
+                }
+                else if(cursor.SelectedTile.IsWalkAble){
+                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
+                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsCursorSelect = false;
+                    unit.moveUnit(tileMap,cursor.PositionX,cursor.PositionY);
+                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
+                }
+              
+                
             }
     }
     // Update is called once per frame
