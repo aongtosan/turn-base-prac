@@ -11,9 +11,8 @@ public class UnitController : StatsInfo
      int positionY;
     
     public void moveUnit(Dictionary<string,GameObject> tileMap,int moveToPositionX,int moveToPositionY){
-        //candidatesTile[string.Format(TileEnum.ID_PATTERN_TILE,positionX,positionY)].GetComponent<TileController>().IsUnitOnTile = false;
-        unit.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, moveToPositionX, moveToPositionY)].transform.parent);
-        unit.transform.localPosition = new Vector3(0, .75f, 0);
+        unit.transform.parent.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, moveToPositionX, moveToPositionY)].transform.parent);
+        unit.transform.parent.localPosition = new Vector3(0, .75f, 0);
         unit.GetComponent<UnitController>().PositionX = moveToPositionX;
         unit.GetComponent<UnitController>().PositionY = moveToPositionY;
     }
@@ -24,17 +23,15 @@ public class UnitController : StatsInfo
         unit.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, initpositionX, initPositionY)].transform.parent);
         unit.transform.localPosition = new Vector3(0, .75f, 0);
         unit = Instantiate(Resources.Load("Prefabs/Unit"),unit.transform) as GameObject;
-
-        move = 3;
-        
+        unit.GetComponent<UnitController>().move = 3 ;
         tileMap[string.Format(TileEnum.ID_PATTERN_TILE, 0, 0)].GetComponent<TileController>().IsUnitOnTile = true;
     }
     public void findMovableTile(Dictionary<string , GameObject> tilemap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
 
-        for(int i= unit.GetComponent<UnitController>().PositionX;i<move;i++){
-            for(int j= unit.GetComponent<UnitController>().PositionY;j<=move;j++){
+        for(int i= 0; i < unit.GetComponent<UnitController>().move;i++){
+            for(int j= 0;j<=unit.GetComponent<UnitController>().move;j++){
                 if(j+unitPositionY<tileDepth){
-                    tilemap[string.Format(TileEnum.ID_PATTERN_TILE,0,0+j)].GetComponent<TileController>().IsWalkAble = true;
+                    tilemap[string.Format(TileEnum.ID_PATTERN_TILE,PositionX,PositionY+j)].GetComponent<TileController>().IsWalkAble = true;
                 }
             }
         }

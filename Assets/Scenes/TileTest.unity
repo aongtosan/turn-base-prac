@@ -408,8 +408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
-  width: 15
-  depth: 15
+  width: 3
+  depth: 3
   height: 4
   hillPercentage: 20
   treasurePile: 1

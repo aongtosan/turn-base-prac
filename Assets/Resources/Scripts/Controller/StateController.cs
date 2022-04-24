@@ -44,13 +44,22 @@ public class StateController : MonoBehaviour
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
             }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
             {
-                cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
-                TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
+                if(cursor.SelectedTile==null){
+                    cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
+                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
+                }
+                if (cursor.SelectedTile!=null){
+                    TileMap[cursor.SelectedTile.TileId].GetComponent<TileController>().IsCursorSelect = false;
+                    cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
+                    TileMap[cursor.SelectedTile.TileId].GetComponent<TileController>().IsCursorSelect = true;
+                }
+                
+                
                 if(cursor.SelectedTile.IsUnitOnTile){
                     cursor.SelectedUnit = unit;
                     unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
                 }
-                else if(cursor.SelectedTile.IsWalkAble){
+                if(cursor.SelectedTile.IsWalkAble){
                     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
                     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsCursorSelect = false;
                     unit.moveUnit(tileMap,cursor.PositionX,cursor.PositionY);
