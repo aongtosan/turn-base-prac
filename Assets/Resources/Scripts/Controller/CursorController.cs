@@ -5,7 +5,6 @@ using UnityEngine;
 public class CursorController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
     GameObject cursorPrefab;
 
     GameObject cursor;
@@ -88,7 +87,8 @@ public class CursorController : MonoBehaviour
       }
       public void intiCursorPosition(Dictionary<string,GameObject> tileMap,int initpositionX,int initpositionY)
       {
-
+        cursorPrefab = Resources.Load("Prefabs/cursorMark") as GameObject ;
+        cursorPrefab.AddComponent<CursorController>();
         cursor = new GameObject("CURSOR");
         cursor.tag = "Cursor";
         cursor.transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE, initpositionX, initpositionY)].transform.parent);
