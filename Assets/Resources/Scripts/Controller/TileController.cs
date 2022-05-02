@@ -111,4 +111,9 @@ public class TileController : MonoBehaviour
         get { return heightlvl; }
         set {heightlvl = value; }
     }
+    public GameObject ItemSet{
+        get{ return chestPrefab; }
+        set{ chestPrefab = value; }
+
+    }
 }

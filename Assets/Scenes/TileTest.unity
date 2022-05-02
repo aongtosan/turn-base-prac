@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 1421621987}
   - component: {fileID: 1421621988}
   - component: {fileID: 1421621989}
+  - component: {fileID: 1421621991}
   - component: {fileID: 1421621990}
   m_Layer: 0
   m_Name: PlanePlate
@@ -395,6 +396,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursor: {fileID: 1421621989}
   tileMapData: {fileID: 1421621988}
+  unitList: {fileID: 1421621990}
+  enemyList: {fileID: 1421621991}
 --- !u!114 &1421621988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,8 +411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
-  width: 3
-  depth: 3
+  width: 5
+  depth: 5
   height: 4
   hillPercentage: 20
   treasurePile: 1
@@ -425,7 +428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cec5c185ac79549bb669d6cb2f5f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorPrefab: {fileID: 8330475305553318430, guid: e2d9848f57ef8554fb97f9d8afbd6042, type: 3}
 --- !u!114 &1421621990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,14 +437,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1421621984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1671118a4944d794a9363c9d7f80f154, type: 3}
+  m_Script: {fileID: 11500000, guid: fc3c99a64a3a318408872fae57b6a322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  unitName: 
-  strenght: 0
-  intelligent: 0
-  agility: 0
-  status: 0
-  abnormalStatus: 0
-  move: 0
+  playableUnitCount: 0
+--- !u!114 &1421621991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e25304ac9ead564aa3c07f350e360d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyUnitCount: 0

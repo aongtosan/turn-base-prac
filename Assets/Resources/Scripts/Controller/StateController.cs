@@ -10,18 +10,33 @@ public class StateController : MonoBehaviour
     private Dictionary<string, GameObject> tileMap;
     
    [SerializeField]
-    private CursorController cursor;
+   CursorController cursor;
    [SerializeField]
     TileGenerate tileMapData;
-   
-    UnitController unit;
-
+    [SerializeField]
+    UnitHandler unitList;
+    [SerializeField]
+    EnemyUnitHandler enemyList;
+    List<GameObject> playableUnit;
+    List<GameObject> enemyUnit;
     private void Start()
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
-        unit = GetComponent<UnitController>();
-        unit.initUnitPositionTile(tileMap,0,0);
+        // UnitController unit = GetComponent<UnitController>();
+        // unit.initUnit();
+        // unit.initUnitPositionTile(tileMap,0,0);
+        //Debug.Log(unit);
+        // UnitController unit2 = GetComponent<UnitController>();
+        // unit2.initUnit();
+        // unit2.initUnitPositionTile(tileMap,0,1);
+        // //playableUnit = new List<GameObject>();
+        //GameObject unit = new GameObject("Unit");
+        // unit.AddComponent<UnitController>();
+        // playableUnit.Add(unit);
+        // playableUnit[0].GetComponent<UnitController>().initUnitPositionTile(tileMap,0,0);
+        // unit = GetComponent<UnitController>();
+        // unit.initUnitPositionTile(tileMap,0,0);
     }
 
  
@@ -44,6 +59,7 @@ public class StateController : MonoBehaviour
                 cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
             }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE
             {
+
                 if(cursor.SelectedTile==null){
                     cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
                     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
@@ -55,20 +71,23 @@ public class StateController : MonoBehaviour
                 }
                 
                 
-                if(cursor.SelectedTile.IsUnitOnTile){
-                    cursor.SelectedUnit = unit;
-                    unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
-                }
-                if(cursor.SelectedTile.IsWalkAble){
-                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
-                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsCursorSelect = false;
-                    unit.moveUnit(tileMap,cursor.PositionX,cursor.PositionY);
-                    TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
-                }
+                // if(cursor.SelectedTile.IsUnitOnTile){
+                //     cursor.SelectedUnit = unit;
+                //     unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
+                // }
+                // if(cursor.SelectedTile.IsWalkAble){
+                //     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
+                //     unit.moveUnit(tileMap,cursor.PositionX,cursor.PositionY,tileMapData.width,tileMapData.depth);
+                //     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
+                    
+                // }
               
                 
             }
     }
+    // IEnumerator waitUntilMoveSuccess(bool moveSuccess){
+    //       yield return new WaitUntil(()=> moveSuccess );
+    // }
     // Update is called once per frame
     void Update()
     {
