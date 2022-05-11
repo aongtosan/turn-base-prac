@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class TileGenerate : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField]
-    GameObject tilePrefabs;
-
-    
+    GameObject tilePrefabs;   
    public int width;
    
    public int depth;
@@ -32,13 +28,14 @@ public class TileGenerate : MonoBehaviour
         tileMap = new Dictionary<string, GameObject>();
 
         tileMap = new Dictionary<string, GameObject> ( createHillTile(width, depth, height, hillPercentage, treasurePile) ) ;
-      
+       
 
     }
 
   public Dictionary<string, GameObject> createHillTile(int widht,int depth,int limitHeight,int percentageHill,int treasureCount)
     {
 
+        tilePrefabs = Resources.Load("Prefabs/tile") as GameObject ;
         Dictionary<string, GameObject> tileState = new Dictionary<string, GameObject>();
         for (int i = 0; i < depth; i++) // row x
         {
