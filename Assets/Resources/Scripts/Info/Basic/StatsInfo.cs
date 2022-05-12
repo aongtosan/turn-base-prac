@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class StatsInfo : MonoBehaviour
 {
-    [SerializeField] int level;
+    [SerializeField] int tier;
     [SerializeField] string unitName;
     [SerializeField] int strenght;
     [SerializeField] int intelligent;
     [SerializeField] int agility;
-
+    [SerializeField] int mentallity;
+    [SerializeField] int perception;
+    [SerializeField] int experience;
     [SerializeField] STATUS status;
     [SerializeField] ABNORMAL_STATUS abnormalStatus;
     public enum STATUS{
@@ -28,10 +30,18 @@ public class StatsInfo : MonoBehaviour
         CONFUSED,
         BLIND
     }
-    public int Level
+    public enum HUNTER_RANK{
+        APPERENTICE,
+        ROCKIEHUNER,
+        HUNTER,
+        HIGHRANKHUNTER,
+        MASTER,
+        LEGENDARY
+    }
+    public int Tier
     {
-        set { level = value; }
-        get { return level; }
+        set { tier = value; }
+        get { return tier; }
     }
     public string UnitName
     {
