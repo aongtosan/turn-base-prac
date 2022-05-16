@@ -32,7 +32,9 @@ public class UnitController : StatsInfo
     }
 
     public void initUnitPositionTile(Dictionary<string,GameObject> tileMap,int initpositionX,int initPositionY){
-      
+            transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].transform);
+            transform.localPosition = new Vector3(0f,.75f,0f);
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].GetComponent<TileController>().IsUnitOnTile = true;
       
     }
     public void findMovableTile(Dictionary<string , GameObject> tilemap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
@@ -56,5 +58,9 @@ public class UnitController : StatsInfo
     public bool MoveComplete{
         set{ moveComplete = value; }
         get{ return moveComplete; }
+    }
+    public int ActionPoint{
+        set{actionPoint = value;}
+        get{return actionPoint;}
     }
 }

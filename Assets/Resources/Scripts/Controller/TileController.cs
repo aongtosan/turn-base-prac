@@ -11,8 +11,6 @@ public class TileController : MonoBehaviour
     bool isCursorHover;
     bool isUnitOnTile;
     GameObject unitOntile;
-
-    [SerializeField]
     GameObject chestPrefab;
 
     string tileId;
@@ -20,11 +18,12 @@ public class TileController : MonoBehaviour
    
     void Start()
     {
+        Material tileColor = GetComponent<Renderer>().material;
         if (isContainItem)
         {
             generateTreasure(new GameObject("treasure"));
         }
-        Material tileColor = GetComponent<Renderer>().material;
+        //Material tileColor = GetComponent<Renderer>().material;
         if (isContainItem)
         {
             tileColor.color = new Color32(253, 166, 76, 1);

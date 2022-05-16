@@ -410,9 +410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df4841d68946841b9eab0de907c2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefabs: {fileID: 6340515517037277001, guid: 6d4133a7429c032429d3d009b68aba2c, type: 3}
-  width: 5
-  depth: 5
+  width: 10
+  depth: 10
   height: 4
   hillPercentage: 20
   treasurePile: 1
@@ -440,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3c99a64a3a318408872fae57b6a322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playableUnitCount: 0
+  playableUnitCount: 1
 --- !u!114 &1421621991
 MonoBehaviour:
   m_ObjectHideFlags: 0

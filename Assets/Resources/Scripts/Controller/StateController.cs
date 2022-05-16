@@ -23,20 +23,12 @@ public class StateController : MonoBehaviour
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
-        // UnitController unit = GetComponent<UnitController>();
-        // unit.initUnit();
-        // unit.initUnitPositionTile(tileMap,0,0);
-        //Debug.Log(unit);
-        // UnitController unit2 = GetComponent<UnitController>();
-        // unit2.initUnit();
-        // unit2.initUnitPositionTile(tileMap,0,1);
-        // //playableUnit = new List<GameObject>();
-        //GameObject unit = new GameObject("Unit");
-        // unit.AddComponent<UnitController>();
-        // playableUnit.Add(unit);
-        // playableUnit[0].GetComponent<UnitController>().initUnitPositionTile(tileMap,0,0);
-        // unit = GetComponent<UnitController>();
-        // unit.initUnitPositionTile(tileMap,0,0);
+        playableUnit = unitList.UnitList;
+        int k = 0;
+        foreach(GameObject playUnit in playableUnit){//init position
+             playUnit.GetComponent<UnitController>().initUnitPositionTile(tileMap,0,k++);
+        } 
+
     }
 
  
