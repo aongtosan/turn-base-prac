@@ -36,6 +36,8 @@ public class UnitController : StatsInfo
             transform.localPosition = new Vector3(0f,.75f,0f);
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].GetComponent<TileController>().IsUnitOnTile = true;
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].GetComponent<TileController>().UnitOnTile = unit;
+            positionX = initpositionX;
+            positionY = initPositionY;
     }
     public void findMovableTile(Dictionary<string , GameObject> tilemap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
 

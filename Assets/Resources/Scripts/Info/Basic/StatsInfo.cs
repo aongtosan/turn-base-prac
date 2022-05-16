@@ -13,6 +13,7 @@ public class StatsInfo : MonoBehaviour
     [SerializeField] int perception;
     [SerializeField] int experience;
     [SerializeField] STATUS status;
+    [SerializeField] CLASS hunterCLass;
     [SerializeField] ABNORMAL_STATUS abnormalStatus;
     public enum STATUS{
         HEALTHY,
@@ -37,6 +38,12 @@ public class StatsInfo : MonoBehaviour
         HIGHRANKHUNTER,
         MASTER,
         LEGENDARY
+    }
+    public enum CLASS{
+        INITIATOR,
+        STRIKER,
+        MARKMAN,
+        SUPPORTER
     }
     public int Tier
     {
