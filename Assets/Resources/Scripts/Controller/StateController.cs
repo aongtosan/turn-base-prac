@@ -26,7 +26,7 @@ public class StateController : MonoBehaviour
         playableUnit = unitList.UnitList;
         int k = 0;
         foreach(GameObject playUnit in playableUnit){//init position
-             playUnit.GetComponent<UnitController>().initUnitPositionTile(tileMap,0,k++);
+             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,k++);
         } 
 
     }
@@ -63,10 +63,10 @@ public class StateController : MonoBehaviour
                 }
                 
                 
-                // if(cursor.SelectedTile.IsUnitOnTile){
-                //     cursor.SelectedUnit = unit;
-                //     unit.findMovableTile(TileMap,tileMapData.width,tileMapData.depth,unit.PositionX,unit.PositionY) ;
-                // }
+                if(cursor.SelectedTile.IsUnitOnTile){
+                   cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
+                   Debug.Log(cursor.SelectedUnit.name);
+                }
                 // if(cursor.SelectedTile.IsWalkAble){
                 //     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
                 //     unit.moveUnit(tileMap,cursor.PositionX,cursor.PositionY,tileMapData.width,tileMapData.depth);

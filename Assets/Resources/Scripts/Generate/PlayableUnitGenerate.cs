@@ -7,9 +7,9 @@ public class PlayableUnitGenerate : MonoBehaviour
         GameObject unit = new GameObject("playableunit");
         unit.AddComponent<UnitController>();
         unit.tag = "PlayableUnit";
+        unit.GetComponent<UnitController>().name = "Aongtsan";
         GameObject unitModel = Resources.Load("Prefabs/Unit") as GameObject ;
         Instantiate(unitModel,unit.transform);
-        //Debug.Log("create complete");
         return unit;
     }
 }

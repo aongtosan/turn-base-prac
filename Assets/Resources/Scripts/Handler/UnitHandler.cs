@@ -10,7 +10,6 @@ public class UnitHandler : MonoBehaviour
    
     void Awake(){
         unitList = new List<GameObject>();
-        //playableUnitCount = 1;
         unitSpawn();
     }
     
@@ -22,5 +21,9 @@ public class UnitHandler : MonoBehaviour
 
     public List<GameObject> UnitList{
         get{return unitList;}
+    }
+    public int PlayableUnitCount{
+        get{return playableUnitCount;}
+        set{playableUnitCount = value;}
     }
 }
