@@ -25,10 +25,10 @@ public class StateController : MonoBehaviour
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
         playableUnit = unitList.UnitList;
         int k = 0;
-        foreach(GameObject playUnit in playableUnit){//init position
-             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,k++);
-        } 
-
+        // foreach(GameObject playUnit in playableUnit){//init position
+        //      playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,k++);
+        // } 
+         playableUnit[0].GetComponent<UnitController>().initUnitPositionTile( playableUnit[0],tileMap,0,2);
     }
 
  
@@ -65,7 +65,9 @@ public class StateController : MonoBehaviour
                 
                 if(cursor.SelectedTile.IsUnitOnTile){
                    cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
-                   Debug.Log(cursor.SelectedUnit.name);
+                   Debug.Log( string.Format( " unit name {0} ,positionX = {1},positionY = {2} ",cursor.SelectedUnit.name,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY ) );
+                //    Debug.Log(cursor.SelectedUnit.PositionX);
+                //    Debug.Log(cursor.SelectedUnit.PositionY);
                 }
                 // if(cursor.SelectedTile.IsWalkAble){
                 //     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,unit.PositionX,unit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
