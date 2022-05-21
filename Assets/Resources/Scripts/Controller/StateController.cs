@@ -22,6 +22,8 @@ public class StateController : MonoBehaviour
     
     STATEPHASE phase;
 
+    bool characterLock = false;
+
     private void Start()
     {
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
@@ -69,8 +71,16 @@ public class StateController : MonoBehaviour
                 if(cursor.SelectedTile.IsUnitOnTile){
                     cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
                     GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
-                    onWalkingUnit.GetComponent<UnitController>().findMovableTile(onWalkingUnit,tileMap,tileMapData.width,tileMapData.depth);    
+                    if(!characterLock){
+                        onWalkingUnit.GetComponent<UnitController>().findMovableTile(onWalkingUnit,tileMap,tileMapData.width,tileMapData.depth);    
+                        characterLock = true;
+                    }
+                    else if(characterLock){
+                         onWalkingUnit.GetComponent<UnitController>().clearTilesState(tileMap,tileMapData.width,tileMapData.depth);
+                         characterLock = false;
+                    }    
                    // select action
+
                 
                 }
                 if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null && cursor.SelectedTile.IsWalkAble){
@@ -80,6 +90,7 @@ public class StateController : MonoBehaviour
                         //Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
                         cursor.SelectedUnit = null;
                 }
+              
               
                 
             }
