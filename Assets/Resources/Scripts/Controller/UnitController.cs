@@ -52,7 +52,9 @@ public class UnitController : StatsInfo
         int currentUnitPositionX = onWalkingUnit.GetComponent<UnitController>().positionX;
         int currentUnitPositionY = onWalkingUnit.GetComponent<UnitController>().positionY;
         for(int i = 0; i<=move;i++){
-             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,currentUnitPositionX,currentUnitPositionY+i)].GetComponent<TileController>().IsWalkAble=true;
+
+            if(currentUnitPositionY+i<tileDepth)  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,currentUnitPositionX,currentUnitPositionY+i)].GetComponent<TileController>().IsWalkAble=true;
+            if(currentUnitPositionX+i<tileWidth)  tileMap[string.Format(TileEnum.ID_PATTERN_TILE,currentUnitPositionX+i,currentUnitPositionY)].GetComponent<TileController>().IsWalkAble=true;
         }
         
     }
