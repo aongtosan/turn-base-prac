@@ -40,10 +40,17 @@ public class UnitController : StatsInfo
             positionX = initpositionX;
             positionY = initPositionY;
     }
-    public void moveUnitToTile(){
-
+    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap){
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile = null;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit   ;
+            onWalkingUnit.GetComponent<UnitController>().PositionX = cursor.PositionX;
+            onWalkingUnit.GetComponent<UnitController>().PositionY = cursor.PositionY;
+            onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].transform;
+            onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
     }
-    public void findMovableTile(Dictionary<string , GameObject> tilemap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
+    public void findMovableTile(Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
 
   
         

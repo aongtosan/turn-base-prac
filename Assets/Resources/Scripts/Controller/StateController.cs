@@ -72,14 +72,7 @@ public class StateController : MonoBehaviour
                 }
                 if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null){
                         GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
-                        TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
-                        TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile = null;
-                        TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
-                        TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit;
-                        onWalkingUnit.GetComponent<UnitController>().PositionX = cursor.PositionX;
-                        onWalkingUnit.GetComponent<UnitController>().PositionY = cursor.PositionY;
-                        onWalkingUnit.transform.parent = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].transform;
-                        onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
+                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap);
                         Debug.Log( string.Format( " unit name {0} ,positionX = {1},positionY = {2} ",cursor.SelectedUnit.name,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY ) );
                         //Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
                         cursor.SelectedUnit = null;
