@@ -19,7 +19,8 @@ public class StateController : MonoBehaviour
     EnemyUnitHandler enemyList;
     List<GameObject> playableUnit;
     List<GameObject> enemyUnit;
-
+    
+    STATEPHASE phase;
 
     private void Start()
     {
@@ -38,19 +39,19 @@ public class StateController : MonoBehaviour
     void cursorHandler(){
             if (Input.GetKeyDown(KeyCode.W)) // UP
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.UP);
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.UP);
             }
             else if (Input.GetKeyDown(KeyCode.S)) //DOWN
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.DOWN);
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.DOWN);
             }
             else if (Input.GetKeyDown(KeyCode.D)) //RIGHT
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.RIGHT);
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.RIGHT);
             }
             else if (Input.GetKeyDown(KeyCode.A)) //LEFT
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth, DirectionEnum.DIRECTIONS.LEFT);
+                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.LEFT);
             }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE && Move Unit
             {
                 Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );

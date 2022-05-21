@@ -1,5 +1,7 @@
-public class StatePhaseEnum 
-{
-    // Start is called before the first frame update
+   public  enum STATEPHASE{
+        PLAYER_TURN,
+        ENEMY_TURN   
+   
+   }
 
-}
+

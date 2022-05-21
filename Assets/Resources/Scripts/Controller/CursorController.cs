@@ -25,15 +25,15 @@ public class CursorController : MonoBehaviour
         set { positionY = value; }
     }
 
-    public void cursorMove( Dictionary<string,GameObject> tileMap, int maxWidth,int maxDepth,DirectionEnum.DIRECTIONS dir)
+    public void cursorMove( Dictionary<string,GameObject> tileMap, int maxWidth,int maxDepth, DIRECTIONS dir)
       {
           int currentPositionX = PositionX;
           int currentPositionY = PositionY;
 
-          PositionX += dir == DirectionEnum.DIRECTIONS.UP ? 1 :  dir == DirectionEnum.DIRECTIONS.DOWN ? -1 : 0;
-          PositionY += dir == DirectionEnum.DIRECTIONS.RIGHT ? 1 :  dir == DirectionEnum.DIRECTIONS.LEFT ? -1 : 0;
+          PositionX += dir == DIRECTIONS.UP ? 1 :  dir == DIRECTIONS.DOWN ? -1 : 0;
+          PositionY += dir == DIRECTIONS.RIGHT ? 1 :  dir == DIRECTIONS.LEFT ? -1 : 0;
           
-          if(dir == DirectionEnum.DIRECTIONS.UP || dir == DirectionEnum.DIRECTIONS.DOWN){
+          if(dir == DIRECTIONS.UP || dir == DIRECTIONS.DOWN){
                 if ( PositionX  <= maxWidth - 1  && PositionX >= 0)
               {
                   tileMap[string.Format(TileEnum.ID_PATTERN_TILE,  currentPositionX,  PositionY)].GetComponent<TileController>().IsCursorHover = false;
