@@ -21,9 +21,6 @@ public class UnitController : StatsInfo
     public void useAbilty(){
       
     }
-    public void moveUnit(Dictionary<string,GameObject> tileMap,int moveToPositionX,int moveToPositionY,int stateWidth,int stateDepth){
-     
-    }
     public void clearTilesState(Dictionary<string,GameObject> tileMap,int stateWidth,int stateDepth){
         for(int i=0;i<stateWidth;i++){
             for(int j=0;j<stateWidth;j++){
@@ -40,7 +37,7 @@ public class UnitController : StatsInfo
             positionX = initpositionX;
             positionY = initPositionY;
     }
-    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap){
+    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile = null;
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
@@ -49,10 +46,14 @@ public class UnitController : StatsInfo
             onWalkingUnit.GetComponent<UnitController>().PositionY = cursor.PositionY;
             onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].transform;
             onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
+            clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
     }
-    public void findMovableTile(Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
-
-  
+    public void findMovableTile(GameObject onWalkingUnit, Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
+        int currentUnitPositionX = onWalkingUnit.GetComponent<UnitController>().positionX;
+        int currentUnitPositionY = onWalkingUnit.GetComponent<UnitController>().positionY;
+        for(int i = 0; i<=move;i++){
+             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,currentUnitPositionX,currentUnitPositionY+i)].GetComponent<TileController>().IsWalkAble=true;
+        }
         
     }
     public int Move

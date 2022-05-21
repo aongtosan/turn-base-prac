@@ -66,13 +66,15 @@ public class StateController : MonoBehaviour
                 
                 
                 if(cursor.SelectedTile.IsUnitOnTile){
-                   cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
-
+                    cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
+                    GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
+                    onWalkingUnit.GetComponent<UnitController>().findMovableTile(onWalkingUnit,tileMap,tileMapData.width,tileMapData.depth);    
                    // select action
+                
                 }
-                if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null){
+                if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null && cursor.SelectedTile.IsWalkAble){
                         GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
-                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap);
+                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap,tileMapData);
                         Debug.Log( string.Format( " unit name {0} ,positionX = {1},positionY = {2} ",cursor.SelectedUnit.name,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY ) );
                         //Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
                         cursor.SelectedUnit = null;
@@ -81,10 +83,6 @@ public class StateController : MonoBehaviour
                 
             }
     }
-    // IEnumerator waitUntilMoveSuccess(bool moveSuccess){
-    //       yield return new WaitUntil(()=> moveSuccess );
-    // }
-    // Update is called once per frame
     void Update()
     {
         cursorHandler();
