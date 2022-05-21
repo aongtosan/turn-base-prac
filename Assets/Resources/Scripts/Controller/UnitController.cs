@@ -11,6 +11,7 @@ public class UnitController : StatsInfo
     int actionPoint;
     bool moveComplete;
     
+
     public void useActionPoint(){
 
     }
@@ -18,7 +19,7 @@ public class UnitController : StatsInfo
 
     }
     public void useAbilty(){
-        
+      
     }
     public void moveUnit(Dictionary<string,GameObject> tileMap,int moveToPositionX,int moveToPositionY,int stateWidth,int stateDepth){
      
@@ -38,6 +39,9 @@ public class UnitController : StatsInfo
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].GetComponent<TileController>().UnitOnTile = unit;
             positionX = initpositionX;
             positionY = initPositionY;
+    }
+    public void moveUnitToTile(){
+
     }
     public void findMovableTile(Dictionary<string , GameObject> tilemap,int tileWidth,int tileDepth,int unitPositionX,int unitPositionY){
 
