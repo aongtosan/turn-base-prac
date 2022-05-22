@@ -54,14 +54,18 @@ public class UnitController : StatsInfo
         for(int i = 0; i<=move;i++){      
                 if(predictNextPositionX<tileDepth) tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY)].GetComponent<TileController>().IsWalkAble=true;
                 for(int j=0;j<=move-i;j++ ){
-                    if(predictNextPositionY+j<tileWidth){
-                        tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
+                    if(predictNextPositionY+j<tileWidth ){
+                        if(predictNextPositionX < tileDepth) {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
+                        }
                         if(onWalkingUnit.GetComponent<UnitController>().positionX-i >=0) {
                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX-i,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
                         }
                     }  
-                    if(predictNextPositionY-j>=0)   {
-                        tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY-j)].GetComponent<TileController>().IsWalkAble=true;
+                    if(predictNextPositionY-j>=0 )   {
+                        if(predictNextPositionX < tileDepth) {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY-j)].GetComponent<TileController>().IsWalkAble=true;
+                        }
                         if(onWalkingUnit.GetComponent<UnitController>().positionX-i >=0) {
                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX-i,predictNextPositionY-j)].GetComponent<TileController>().IsWalkAble=true;
                         }  

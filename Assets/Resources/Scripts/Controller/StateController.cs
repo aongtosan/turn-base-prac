@@ -30,6 +30,9 @@ public class StateController : MonoBehaviour
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
         playableUnit = unitList.UnitList;
         int k = 0;
+
+
+ 
         foreach(GameObject playUnit in playableUnit){//init position
              playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,3);
         } 
@@ -78,16 +81,13 @@ public class StateController : MonoBehaviour
                     else if(characterLock){
                          onWalkingUnit.GetComponent<UnitController>().clearTilesState(tileMap,tileMapData.width,tileMapData.depth);
                          characterLock = false;
-                    }    
-                   // select action
+                    }                       
 
                 
                 }
                 if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null && cursor.SelectedTile.IsWalkAble){
                         GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
-                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap,tileMapData);
-                        Debug.Log( string.Format( " unit name {0} ,positionX = {1},positionY = {2} ",cursor.SelectedUnit.name,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY ) );
-                        //Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
+                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap,tileMapData);  
                         cursor.SelectedUnit = null;
                 }
               

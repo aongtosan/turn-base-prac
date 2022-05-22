@@ -12,14 +12,21 @@ public class StatsInfo : MonoBehaviour
     [SerializeField] int mentallity;
     [SerializeField] int perception;
     [SerializeField] int experience;
+    [SerializeField] MOVE_TYPE moveType;
     [SerializeField] STATUS status;
-    [SerializeField] CLASS hunterCLass;
+    [SerializeField] HUNTER_RANK hunterRank;
+    [SerializeField] COMBAT_CLASS hunterCLass;
     [SerializeField] ABNORMAL_STATUS abnormalStatus;
     public enum STATUS{
         HEALTHY,
         INJURED,
         ABNORMAL,
         DEATH
+    }
+    public enum MOVE_TYPE{
+        WALK,
+        FLY,
+        TELEPORT
     }
     public enum ABNORMAL_STATUS{
         NONE,
@@ -39,7 +46,7 @@ public class StatsInfo : MonoBehaviour
         MASTER,
         LEGENDARY
     }
-    public enum CLASS{
+    public enum COMBAT_CLASS {
         INITIATOR,
         STRIKER,
         MARKMAN,
