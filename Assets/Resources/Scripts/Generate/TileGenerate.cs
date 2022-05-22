@@ -4,10 +4,10 @@ using UnityEngine;
 public class TileGenerate : MonoBehaviour
 {
     GameObject tilePrefabs;   
-   public int width;
-   
+  
    public int depth;
-   
+   public int width;
+    
    public int height;
    
    public int hillPercentage;

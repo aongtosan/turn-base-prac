@@ -31,7 +31,7 @@ public class StateController : MonoBehaviour
         playableUnit = unitList.UnitList;
         int k = 0;
         foreach(GameObject playUnit in playableUnit){//init position
-             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,k++);
+             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,3);
         } 
          //playableUnit[0].GetComponent<UnitController>().initUnitPositionTile( playableUnit[0],tileMap,0,2);
     }
@@ -41,19 +41,19 @@ public class StateController : MonoBehaviour
     void cursorHandler(){
             if (Input.GetKeyDown(KeyCode.W)) // UP
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.UP);
+                cursor.cursorMove(tileMap, tileMapData.depth,tileMapData.width,  DIRECTIONS.UP);
             }
             else if (Input.GetKeyDown(KeyCode.S)) //DOWN
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.DOWN);
+                cursor.cursorMove(tileMap, tileMapData.depth,tileMapData.width,  DIRECTIONS.DOWN);
             }
             else if (Input.GetKeyDown(KeyCode.D)) //RIGHT
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.RIGHT);
+                cursor.cursorMove(tileMap, tileMapData.depth,tileMapData.width,  DIRECTIONS.RIGHT);
             }
             else if (Input.GetKeyDown(KeyCode.A)) //LEFT
             {
-                cursor.cursorMove(tileMap, tileMapData.width, tileMapData.depth,  DIRECTIONS.LEFT);
+                cursor.cursorMove(tileMap, tileMapData.depth,tileMapData.width,  DIRECTIONS.LEFT);
             }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE && Move Unit
             {
                 Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
