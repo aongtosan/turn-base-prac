@@ -410,8 +410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df4841d68946841b9eab0de907c2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  depth: 10
+  depth: 9
+  width: 9
   height: 4
   hillPercentage: 20
   treasurePile: 1
