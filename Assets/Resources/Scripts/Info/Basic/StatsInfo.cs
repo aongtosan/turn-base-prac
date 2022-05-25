@@ -77,4 +77,8 @@ public class StatsInfo : MonoBehaviour
         set { agility = value; }
         get { return agility; }
     }
+    public MOVE_TYPE MOVETYPE{
+        set{moveType =value;}
+        get{return moveType;}
+    }
 }

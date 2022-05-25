@@ -37,7 +37,7 @@ public class UnitController : StatsInfo
             positionX = initpositionX;
             positionY = initPositionY;
     }
-    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+    public void teleportToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile = null;
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
@@ -46,7 +46,21 @@ public class UnitController : StatsInfo
             onWalkingUnit.GetComponent<UnitController>().PositionY = cursor.PositionY;
             onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].transform;
             onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
+    
+    }
+    public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+        Debug.Log("walk");
+    }
+    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+            if(MOVETYPE == MOVE_TYPE.TELEPORT){
+                teleportToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+            }
+            if(MOVETYPE == MOVE_TYPE.WALK){
+                walkToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+            }
+           
             clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
+    
     }
     public void findMovableTile(GameObject onWalkingUnit, Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
         int predictNextPositionX = onWalkingUnit.GetComponent<UnitController>().positionX;//up
