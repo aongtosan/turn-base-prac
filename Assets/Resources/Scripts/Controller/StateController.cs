@@ -57,7 +57,8 @@ public class StateController : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.A)) //LEFT
             {
                 cursor.cursorMove(tileMap, tileMapData.depth,tileMapData.width,  DIRECTIONS.LEFT);
-            }else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE && Move Unit
+            }
+            else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE && Move Unit
             {
                 Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
                 if(cursor.SelectedTile==null){

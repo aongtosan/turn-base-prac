@@ -51,14 +51,14 @@ public class TileGenerate : MonoBehaviour
                 for (int w = 0; w <= tileHeight; w++) // height y
                 {
                     GameObject tile = new GameObject();
-                    tile.name = string.Format(TileEnum.NAME_PATTERN_TILE, i, w, j);
+                    tile.name = string.Format(TileEnum.NAME_PATTERN_TILE, j, w, i);
                     tile.transform.SetParent(row.transform);
                     tile.transform.localPosition = new Vector3(j, w, 0);
                     tile = Instantiate(tilePrefabs, tile.transform);
                     tile.AddComponent<TileController>();
                     TileController tileProfile = tile.GetComponent<TileController>();
                     tileProfile.ItemSet = Resources.Load("Prefabs/chest") as GameObject ;
-                    tileProfile.TileId = w < tileHeight ?  TileEnum.NOT_REACHABLE : string.Format(TileEnum.ID_PATTERN_TILE, i, j);
+                    tileProfile.TileId = w < tileHeight ?  TileEnum.NOT_REACHABLE : string.Format(TileEnum.ID_PATTERN_TILE, j, i);
                     tileProfile.Heightlvl = w;
                     tileProfile.IsWalkAble = false;
                     tileProfile.IsCursorSelect = false;
