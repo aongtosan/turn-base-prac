@@ -81,4 +81,8 @@ public class StatsInfo : MonoBehaviour
         set{moveType =value;}
         get{return moveType;}
     }
+
+    void resumeFromDelay(IEnumerator delay){
+         StartCoroutine(delay);
+    }
 }

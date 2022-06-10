@@ -9,9 +9,9 @@ public class StateController : MonoBehaviour
 
     private Dictionary<string, GameObject> tileMap;
     
-   [SerializeField]
-   CursorController cursor;
-   [SerializeField]
+    [SerializeField]
+    CursorController cursor;
+    [SerializeField]
     TileGenerate tileMapData;
     [SerializeField]
     UnitHandler unitList;
