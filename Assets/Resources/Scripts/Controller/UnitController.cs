@@ -28,7 +28,6 @@ public class UnitController : StatsInfo
             }
         }
     }
-
     public void initUnitPositionTile(GameObject unit,Dictionary<string,GameObject> tileMap,int initpositionX,int initPositionY){
             transform.SetParent(tileMap[string.Format(TileEnum.ID_PATTERN_TILE,initpositionX,initPositionY)].transform);
             transform.localPosition = new Vector3(0f,.75f,0f);
@@ -51,12 +50,18 @@ public class UnitController : StatsInfo
     public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("walk");
     }
+    public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+         Debug.Log("fly");
+    }
     public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
             if(MOVETYPE == MOVE_TYPE.TELEPORT){
                 teleportToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
             if(MOVETYPE == MOVE_TYPE.WALK){
                 walkToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+            }
+            if(MOVETYPE  == MOVE_TYPE.FLY){
+                flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
            
             clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
