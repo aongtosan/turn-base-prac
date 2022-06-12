@@ -66,10 +66,11 @@ public class TileGenerate : MonoBehaviour
                     if (!tileProfile.TileId.Contains(TileEnum.NOT_REACHABLE)) {
                         tileState.Add(tileProfile.TileId, tile);
                     }
-
+                  
                 }
 
             }
+            
         }
         //fix treasure pile
         for(int i  = 0;i < treasureCount; i++)

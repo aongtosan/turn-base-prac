@@ -51,7 +51,7 @@ public class UnitController : StatsInfo
         Debug.Log("walk");
     }
     public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
-         Debug.Log("fly");
+        Debug.Log("fly");
     }
     public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
             if(MOVETYPE == MOVE_TYPE.TELEPORT){
