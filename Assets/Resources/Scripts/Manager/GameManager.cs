@@ -7,6 +7,16 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public UnityEvent OnGameStart;
+    public static GameManager instance ;
+    
+    public enum GAME_STATE{
+        WORLDMAP,
+        BATTLE,
+        BASE
+    }
+    void Awake(){
+        instance = this;
+    }
     void Start()
     {
         
