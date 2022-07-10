@@ -20,8 +20,6 @@ public class StateController : MonoBehaviour
     List<GameObject> playableUnit;
     List<GameObject> enemyUnit;
     
-    STATEPHASE phase;
-
     bool characterLock = false;
 
     private void Start()
