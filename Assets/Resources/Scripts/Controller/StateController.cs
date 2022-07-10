@@ -36,10 +36,8 @@ public class StateController : MonoBehaviour
         foreach(GameObject playUnit in playableUnit){//init position
              playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,3);
         } 
-         //playableUnit[0].GetComponent<UnitController>().initUnitPositionTile( playableUnit[0],tileMap,0,2);
     }
 
- 
 
     void cursorHandler(){
             if (Input.GetKeyDown(KeyCode.W)) // UP

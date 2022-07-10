@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsInfo : MonoBehaviour
+ [System.Serializable]
+public class StatsInfo 
 {
     [SerializeField] int tier;
     [SerializeField] string unitName;
@@ -15,8 +16,9 @@ public class StatsInfo : MonoBehaviour
     [SerializeField] MOVE_TYPE moveType;
     [SerializeField] STATUS status;
     [SerializeField] HUNTER_RANK hunterRank;
-    [SerializeField] COMBAT_CLASS hunterCLass;
+    [SerializeField] COMBAT_CLASS hunterClass;
     [SerializeField] ABNORMAL_STATUS abnormalStatus;
+    [SerializeField] int move;
     public enum STATUS{
         HEALTHY,
         INJURED,
@@ -57,6 +59,11 @@ public class StatsInfo : MonoBehaviour
         set { tier = value; }
         get { return tier; }
     }
+    public int Move
+    {
+        set { move = value; }
+        get { return move; }
+    }
     public string UnitName
     {
         set { unitName = value; }
@@ -77,12 +84,42 @@ public class StatsInfo : MonoBehaviour
         set { agility = value; }
         get { return agility; }
     }
+    public int Perception
+    {
+        set { perception = value; }
+        get { return perception; }
+    }
+    public int Mentallity
+    {
+        set { mentallity = value; }
+        get { return mentallity; }
+    }
+    public int Experience
+    {
+        set { experience = value; }
+        get { return experience; }
+    }
+     public HUNTER_RANK HunterRank
+    {
+        set { hunterRank = value; }
+        get { return hunterRank; }
+    }
+    public COMBAT_CLASS HunterClass
+    {
+        set { hunterClass = value; }
+        get { return hunterClass; }
+    }
+    public STATUS Status
+    {
+        set { status = value; }
+        get { return status; }
+    }
     public MOVE_TYPE MOVETYPE{
         set{moveType =value;}
         get{return moveType;}
     }
-
-    void resumeFromDelay(IEnumerator delay){
-         StartCoroutine(delay);
+    public ABNORMAL_STATUS AbnormalStatus{
+        set{abnormalStatus =value;}
+        get{return abnormalStatus;}
     }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitController : StatsInfo
+public class UnitController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] int move;
+    
+    [SerializeField]
+    StatsInfo statData;
     int positionX;
     int positionY;
     int actionPoint;
@@ -54,13 +56,13 @@ public class UnitController : StatsInfo
         Debug.Log("fly");
     }
     public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
-            if(MOVETYPE == MOVE_TYPE.TELEPORT){
+            if(StatsInfo.MOVE_TYPE.TELEPORT == statData.MOVETYPE){
                 teleportToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
-            if(MOVETYPE == MOVE_TYPE.WALK){
+            if(StatsInfo.MOVE_TYPE.WALK == statData.MOVETYPE){
                 walkToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
-            if(MOVETYPE  == MOVE_TYPE.FLY){
+            if(StatsInfo.MOVE_TYPE.FLY == statData.MOVETYPE){
                 flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
            
@@ -70,9 +72,9 @@ public class UnitController : StatsInfo
     public void findMovableTile(GameObject onWalkingUnit, Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
         int predictNextPositionX = onWalkingUnit.GetComponent<UnitController>().positionX;//up
         int predictNextPositionY = onWalkingUnit.GetComponent<UnitController>().positionY;//right
-        for(int i = 0; i<=move;i++){      
+        for(int i = 0; i<=statData.Move;i++){      
                 if(predictNextPositionX<tileWidth) tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY)].GetComponent<TileController>().IsWalkAble=true;
-                for(int j=0;j<=move-i;j++ ){
+                for(int j=0;j<=statData.Move-i;j++ ){
                     if(predictNextPositionY+j<tileDepth ){
                         if(predictNextPositionX < tileWidth) {
                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
@@ -95,11 +97,7 @@ public class UnitController : StatsInfo
         }
         
     }
-    public int Move
-    {
-        get { return move; }
-        set { move = value; }
-    }
+
     public int PositionX{
         set{ positionX = value;  }
         get{ return positionX; }
@@ -115,5 +113,9 @@ public class UnitController : StatsInfo
     public int ActionPoint{
         set{actionPoint = value;}
         get{return actionPoint;}
+    }
+    public StatsInfo StatData{
+        set{statData = value;}
+        get{return statData;}
     }
 }
