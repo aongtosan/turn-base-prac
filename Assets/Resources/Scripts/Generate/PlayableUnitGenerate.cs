@@ -9,9 +9,9 @@ public class PlayableUnitGenerate : MonoBehaviour
         unit.AddComponent<UnitController>();
         unit.tag = "PlayableUnit";
 
-        StatsInfo unitData = loadUnitDataResource();
+       
 
-        unit.GetComponent<UnitController>().StatData = loadUnitDataResource();
+        unit.GetComponent<UnitController>().StatData = utilitiesFunction.loadUnitDataResource<StatsInfo>("unitData.json");
         unit.name =  unit.GetComponent<UnitController>().StatData.UnitName;
         
         GameObject unitModel = Resources.Load("Prefabs/Unit") as GameObject ;
@@ -19,10 +19,4 @@ public class PlayableUnitGenerate : MonoBehaviour
         return unit;
     }
 
-    public static StatsInfo loadUnitDataResource(){
-        string readJsonData = File.ReadAllText(Application.dataPath+"/Resources/CommonDatas/unitData.json");
-        string unitDatJson = JsonUtility.ToJson(readJsonData);
-        Debug.Log(readJsonData);
-        return JsonUtility.FromJson<StatsInfo>(readJsonData);
-    }
 }
