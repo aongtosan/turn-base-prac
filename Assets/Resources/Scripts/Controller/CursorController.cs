@@ -85,9 +85,6 @@ public class CursorController : MonoBehaviour
         }
           
       }
-      private bool isMoveCusorWhileSelectUnit(){
-          return selectedTile == null ? false : true;
-      }
       public void intiCursorPosition(Dictionary<string,GameObject> tileMap,int initpositionX,int initpositionY)
       {
         cursorPrefab = Resources.Load("Prefabs/cursorMark") as GameObject ;
