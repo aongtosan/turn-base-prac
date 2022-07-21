@@ -15,9 +15,10 @@ public class UnitController : MonoBehaviour
     bool moveComplete;
     
     ActionType doAction;
-    List<Tile> pathNode  = new List<Tile>();
+    List<Tile> pathNode  ;
     public void Awake(){
-        //pathNode = new List<Tile>();
+        pathNode = new List<Tile>();
+        moveComplete = false;
     }
     public void Update(){
 
@@ -36,9 +37,6 @@ public class UnitController : MonoBehaviour
     }
     public void useAbilty(){
       
-    }
-    public void moveUnit(){
-        
     }
     public void clearTilesState(Dictionary<string,GameObject> tileMap,int stateWidth,int stateDepth){
         for(int i=0;i<stateWidth;i++){
@@ -77,25 +75,19 @@ public class UnitController : MonoBehaviour
         int xCurrentPosition = positionX;
         int yCurrentPosition = positionY;
         Debug.Log(findingPath(positionX,positionY,cursor.PositionX,cursor.PositionY,pathNode).Count ) ;
-        foreach(Tile t in pathNode){
-            Debug.Log(t.getLocation());
-        }
-        // for(int i=positionX;i<=xTargetLocation;i++){
-        //     for(int j=positionY;j<=yTargetLocation;j++){
-        //         //StartCoroutine(nameof(delayMovement));
-        //         Debug.Log(string.Format("fly from Location {0},{1} to positionX={2},positionY={3}",positionX,positionY,i,j ) );
-        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().IsUnitOnTile = false;
-        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().UnitOnTile = null;
-        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().IsUnitOnTile = true;
-        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit   ;
-        //         onWalkingUnit.GetComponent<UnitController>().PositionX = i;
-        //         onWalkingUnit.GetComponent<UnitController>().PositionY = j;
-        //         onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].transform;
-        //         onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
-        //     }
-        // }
+        StartCoroutine(delayMovement(onWalkingUnit, tileMap, tileInfo));
     }
-    public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+    public void moveToTile(GameObject onWalkingUnit,Tile targetTile,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,PositionX,PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, PositionX, PositionY)].GetComponent<TileController>().UnitOnTile = null;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, targetTile.x, targetTile.y)].GetComponent<TileController>().IsUnitOnTile = true;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, targetTile.x, targetTile.y)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit   ;
+            onWalkingUnit.GetComponent<UnitController>().PositionX = targetTile.x;
+            onWalkingUnit.GetComponent<UnitController>().PositionY = targetTile.y;
+            onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE, targetTile.x, targetTile.y)].transform;
+            onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
+    }
+    public void moveUnit(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
            
             //findMovableTile(onWalkingUnit,tileMap,tileInfo.width,tileInfo.depth);
             if(StatsInfo.MOVE_TYPE.TELEPORT == statData.MOVETYPE){
@@ -106,9 +98,11 @@ public class UnitController : MonoBehaviour
             }
             if(StatsInfo.MOVE_TYPE.FLY == statData.MOVETYPE){
                 flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+                
             }
-           
+            moveComplete = true;
             clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
+            
     
     }
     public void findMovableTile(GameObject onWalkingUnit, Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
@@ -139,6 +133,10 @@ public class UnitController : MonoBehaviour
         }
         
     }
+    public void clearAllPath()
+    {
+        pathNode.Clear();
+    }
     public List<Tile> findingPath(int unitLocationX,int unitLocationY,int xTargetLocation,int yTargetLocation,List<Tile> path){
         
         if(unitLocationX<xTargetLocation){
@@ -158,8 +156,18 @@ public class UnitController : MonoBehaviour
         }
         return path;
     }
-    IEnumerator delayMovement(){
-        yield return new WaitForSeconds(0.5f);
+    IEnumerator delayMovement(GameObject onWalkingUnit, Dictionary<string, GameObject> tileMap, TileGenerate tileInfo)
+    {
+        //yield return new WaitForSeconds(0.5f);
+          foreach(Tile t in pathNode){
+            yield return new WaitForSeconds(0.2f);
+            Debug.Log(t.getLocation());
+            moveToTile(onWalkingUnit, t, tileMap, tileInfo);
+            //pathNode.Remove(t);
+        }
+        pathNode.Clear();
+
+
     }
     public int PositionX{
         set{ positionX = value;  }

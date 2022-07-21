@@ -4,29 +4,19 @@ using UnityEngine;
 public class TileGenerate : MonoBehaviour
 {
     GameObject tilePrefabs;   
-  
    public int depth;
    public int width;
-    
    public int height;
-   
    public int hillPercentage;
-   
-   public int treasurePile;
-
-
-    
+   public int treasurePile;    
     private GameObject terrain;
     private Dictionary<string,GameObject> tileMap;
-    
-
-    private void Awake()
+    private void Start()
     {
         terrain = new GameObject(TileEnum.BASE_PLANE_NAME);
         terrain.transform.SetParent(transform);
         terrain.transform.localPosition = Vector3.zero;
         tileMap = new Dictionary<string, GameObject>();
-
         tileMap = new Dictionary<string, GameObject> ( createHillTile(width, depth, height, hillPercentage, treasurePile) ) ;
        
 
