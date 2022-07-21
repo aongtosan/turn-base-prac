@@ -8,7 +8,7 @@ public class UnitHandler : MonoBehaviour
     [SerializeField] int playableUnitCount;
     List<GameObject> unitList;
    
-    void Awake(){
+    void Start(){
         unitList = new List<GameObject>();
         unitSpawn();
     }

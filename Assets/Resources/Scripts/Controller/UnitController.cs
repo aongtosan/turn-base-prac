@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UnitController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -13,15 +14,31 @@ public class UnitController : MonoBehaviour
     int actionPoint;
     bool moveComplete;
     
+    ActionType doAction;
+    List<Tile> pathNode  = new List<Tile>();
+    public void Awake(){
+        //pathNode = new List<Tile>();
+    }
+    public void Update(){
 
-    public void useActionPoint(){
-
+    }
+    public void action(ActionType act,GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+        if(act == ActionType.MOVE){
+            //moveUnitToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+        }else  if(act == ActionType.ATTACK){
+            
+        }else  if(act == ActionType.ABILITY){
+            
+        }
     }
     public void attack(){
 
     }
     public void useAbilty(){
       
+    }
+    public void moveUnit(){
+        
     }
     public void clearTilesState(Dictionary<string,GameObject> tileMap,int stateWidth,int stateDepth){
         for(int i=0;i<stateWidth;i++){
@@ -51,11 +68,36 @@ public class UnitController : MonoBehaviour
     }
     public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("walk");
+        
     }
     public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("fly");
+        int xTargetLocation = cursor.PositionX;
+        int yTargetLocation = cursor.PositionY;
+        int xCurrentPosition = positionX;
+        int yCurrentPosition = positionY;
+        Debug.Log(findingPath(positionX,positionY,cursor.PositionX,cursor.PositionY,pathNode).Count ) ;
+        foreach(Tile t in pathNode){
+            Debug.Log(t.getLocation());
+        }
+        // for(int i=positionX;i<=xTargetLocation;i++){
+        //     for(int j=positionY;j<=yTargetLocation;j++){
+        //         //StartCoroutine(nameof(delayMovement));
+        //         Debug.Log(string.Format("fly from Location {0},{1} to positionX={2},positionY={3}",positionX,positionY,i,j ) );
+        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().IsUnitOnTile = false;
+        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().UnitOnTile = null;
+        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().IsUnitOnTile = true;
+        //         tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit   ;
+        //         onWalkingUnit.GetComponent<UnitController>().PositionX = i;
+        //         onWalkingUnit.GetComponent<UnitController>().PositionY = j;
+        //         onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,i,j)].transform;
+        //         onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
+        //     }
+        // }
     }
     public void moveUnitToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
+           
+            //findMovableTile(onWalkingUnit,tileMap,tileInfo.width,tileInfo.depth);
             if(StatsInfo.MOVE_TYPE.TELEPORT == statData.MOVETYPE){
                 teleportToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
@@ -97,7 +139,28 @@ public class UnitController : MonoBehaviour
         }
         
     }
-
+    public List<Tile> findingPath(int unitLocationX,int unitLocationY,int xTargetLocation,int yTargetLocation,List<Tile> path){
+        
+        if(unitLocationX<xTargetLocation){
+            path.Add(new Tile(unitLocationX+1,unitLocationY));
+            return findingPath(unitLocationX+1,unitLocationY,xTargetLocation,yTargetLocation, path)  ;
+        }else if(unitLocationX>xTargetLocation){
+           path.Add(new Tile(unitLocationX-1,unitLocationY));
+            return findingPath(unitLocationX-1,unitLocationY,xTargetLocation,yTargetLocation,path);
+        }
+        else if(unitLocationY>yTargetLocation){
+           pathNode.Add(new Tile(unitLocationX,unitLocationY-1));
+            return findingPath(unitLocationX,unitLocationY-1,xTargetLocation,yTargetLocation,path);
+        }
+        else if(unitLocationY<yTargetLocation){
+            path.Add(new Tile(unitLocationX,unitLocationY+1));
+            return findingPath(unitLocationX,unitLocationY+1,xTargetLocation,yTargetLocation,path);
+        }
+        return path;
+    }
+    IEnumerator delayMovement(){
+        yield return new WaitForSeconds(0.5f);
+    }
     public int PositionX{
         set{ positionX = value;  }
         get{ return positionX; }
@@ -117,5 +180,9 @@ public class UnitController : MonoBehaviour
     public StatsInfo StatData{
         set{statData = value;}
         get{return statData;}
+    }
+    public ActionType DoAction{
+         set{doAction = value;}
+        get{return doAction;}
     }
 }
