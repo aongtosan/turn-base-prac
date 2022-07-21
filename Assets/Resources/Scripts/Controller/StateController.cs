@@ -22,6 +22,7 @@ public class StateController : MonoBehaviour
     
     STATEPHASE phase;
 
+
     bool characterLock = false;
 
     private void Start()
@@ -29,9 +30,6 @@ public class StateController : MonoBehaviour
         tileMap = new Dictionary<string, GameObject>(tileMapData.getMapInfo());
         cursor.intiCursorPosition(tileMapData.getMapInfo(),0,0);
         playableUnit = unitList.UnitList;
-        int k = 0;
-
-
  
         foreach(GameObject playUnit in playableUnit){//init position
              playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,3);
@@ -58,7 +56,7 @@ public class StateController : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.X))//SELECT TILE && Move Unit
             {
-                Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
+                //Debug.Log( string.Format( " cursor location positionX = {0},positionY = {1} ",cursor.PositionX,cursor.PositionY ) );
                 if(cursor.SelectedTile==null){
                     cursor.SelectedTile = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>();
                     TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsCursorSelect = true;
@@ -69,7 +67,8 @@ public class StateController : MonoBehaviour
                     TileMap[cursor.SelectedTile.TileId].GetComponent<TileController>().IsCursorSelect = true;
                 }
                 
-                
+                //check unit action
+                // what action i gonna do -> move
                 if(cursor.SelectedTile.IsUnitOnTile){
                     cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
                     GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
@@ -78,15 +77,15 @@ public class StateController : MonoBehaviour
                         characterLock = true;
                     }
                     else if(characterLock){
-                         onWalkingUnit.GetComponent<UnitController>().clearTilesState(tileMap,tileMapData.width,tileMapData.depth);
                          characterLock = false;
+                         onWalkingUnit.GetComponent<UnitController>().clearTilesState(tileMap,tileMapData.width,tileMapData.depth);
                     }                       
 
                 
                 }
                 if(!cursor.SelectedTile.IsUnitOnTile && cursor.SelectedUnit!=null && cursor.SelectedTile.IsWalkAble){
                         GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
-                        onWalkingUnit.GetComponent<UnitController>().moveUnitToTile(onWalkingUnit,cursor,TileMap,tileMapData);  
+                        onWalkingUnit.GetComponent<UnitController>().moveUnit(onWalkingUnit,cursor,TileMap,tileMapData);
                         cursor.SelectedUnit = null;
                 }
               

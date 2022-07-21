@@ -19,6 +19,7 @@ public class UnitController : MonoBehaviour
     public void Awake(){
         pathNode = new List<Tile>();
         moveComplete = false;
+        doAction = ActionType.NONE;
     }
     public void Update(){
 
@@ -65,16 +66,10 @@ public class UnitController : MonoBehaviour
     
     }
     public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
-        Debug.Log("walk");
-        
+        Debug.Log("walk");     
     }
     public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("fly");
-        int xTargetLocation = cursor.PositionX;
-        int yTargetLocation = cursor.PositionY;
-        int xCurrentPosition = positionX;
-        int yCurrentPosition = positionY;
-        Debug.Log(findingPath(positionX,positionY,cursor.PositionX,cursor.PositionY,pathNode).Count ) ;
         StartCoroutine(delayMovement(onWalkingUnit, tileMap, tileInfo));
     }
     public void moveToTile(GameObject onWalkingUnit,Tile targetTile,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
@@ -132,10 +127,6 @@ public class UnitController : MonoBehaviour
 
         }
         
-    }
-    public void clearAllPath()
-    {
-        pathNode.Clear();
     }
     public List<Tile> findingPath(int unitLocationX,int unitLocationY,int xTargetLocation,int yTargetLocation,List<Tile> path){
         
