@@ -70,7 +70,8 @@ public class UnitController : MonoBehaviour
     }
     public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("fly");
-        StartCoroutine(delayMovement(onWalkingUnit, tileMap, tileInfo));
+        pathNode = findingPath(positionX, positionY, cursor.PositionX, cursor.PositionY, pathNode);
+        StartCoroutine( delayMovement(onWalkingUnit, tileMap, tileInfo) );
     }
     public void moveToTile(GameObject onWalkingUnit,Tile targetTile,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
             tileMap[string.Format(TileEnum.ID_PATTERN_TILE,PositionX,PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
@@ -84,7 +85,7 @@ public class UnitController : MonoBehaviour
     }
     public void moveUnit(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
            
-            //findMovableTile(onWalkingUnit,tileMap,tileInfo.width,tileInfo.depth);
+           
             if(StatsInfo.MOVE_TYPE.TELEPORT == statData.MOVETYPE){
                 teleportToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
@@ -93,6 +94,7 @@ public class UnitController : MonoBehaviour
             }
             if(StatsInfo.MOVE_TYPE.FLY == statData.MOVETYPE){
                 flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);
+            
                 
             }
             moveComplete = true;
@@ -147,14 +149,13 @@ public class UnitController : MonoBehaviour
         }
         return path;
     }
-    IEnumerator delayMovement(GameObject onWalkingUnit, Dictionary<string, GameObject> tileMap, TileGenerate tileInfo)
+    public IEnumerator delayMovement(GameObject onWalkingUnit, Dictionary<string, GameObject> tileMap, TileGenerate tileInfo)
     {
-        //yield return new WaitForSeconds(0.5f);
+        
           foreach(Tile t in pathNode){
             yield return new WaitForSeconds(0.2f);
             Debug.Log(t.getLocation());
             moveToTile(onWalkingUnit, t, tileMap, tileInfo);
-            //pathNode.Remove(t);
         }
         pathNode.Clear();
 

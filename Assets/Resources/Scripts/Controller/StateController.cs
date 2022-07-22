@@ -69,7 +69,7 @@ public class StateController : MonoBehaviour
                 
                 //check unit action
                 // what action i gonna do -> move
-                if(cursor.SelectedTile.IsUnitOnTile){
+                if(cursor.SelectedTile.IsUnitOnTile){ //select unit 
                     cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
                     GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
                     if(!characterLock){
