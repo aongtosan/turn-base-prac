@@ -93,9 +93,7 @@ public class UnitController : MonoBehaviour
                 walkToTile(onWalkingUnit,cursor,tileMap,tileInfo);
             }
             if(StatsInfo.MOVE_TYPE.FLY == statData.MOVETYPE){
-                flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);
-            
-                
+                flyToTile(onWalkingUnit,cursor,tileMap,tileInfo);     
             }
             moveComplete = true;
             clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
@@ -108,22 +106,72 @@ public class UnitController : MonoBehaviour
         for(int i = 0; i<=statData.Move;i++){      
                 if(predictNextPositionX<tileWidth) tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY)].GetComponent<TileController>().IsWalkAble=true;
                 for(int j=0;j<=statData.Move-i;j++ ){
-                    if(predictNextPositionY+j<tileDepth ){
-                        if(predictNextPositionX < tileWidth) {
-                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
+                if(statData.MOVETYPE != StatsInfo.MOVE_TYPE.WALK)
+                {
+                    if (predictNextPositionY + j < tileDepth)
+                    {
+                        if (predictNextPositionX < tileWidth)
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
                         }
-                        if(onWalkingUnit.GetComponent<UnitController>().positionX-i >=0) {
-                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX-i,predictNextPositionY+j)].GetComponent<TileController>().IsWalkAble=true;
+                        if (onWalkingUnit.GetComponent<UnitController>().positionX - i >= 0)
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
                         }
-                    }  
-                    if(predictNextPositionY-j>=0 )   {
-                        if(predictNextPositionX < tileWidth) {
-                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY-j)].GetComponent<TileController>().IsWalkAble=true;
+                    }
+                    if (predictNextPositionY - j >= 0)
+                    {
+                        if (predictNextPositionX < tileWidth)
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
                         }
-                        if(onWalkingUnit.GetComponent<UnitController>().positionX-i >=0) {
-                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX-i,predictNextPositionY-j)].GetComponent<TileController>().IsWalkAble=true;
-                        }  
-                    }  
+                        if (onWalkingUnit.GetComponent<UnitController>().positionX - i >= 0)
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (predictNextPositionY + j < tileDepth)
+                    {
+                        if (predictNextPositionX < tileWidth
+                            && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)]
+                            .GetComponent<TileController>().Heightlvl<= statData.Jump
+                            )
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
+                        }
+                        if (
+                            onWalkingUnit.GetComponent<UnitController>().positionX - i >= 0
+                            && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY + j)]
+                            .GetComponent<TileController>().Heightlvl <= statData.Jump
+                            )
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
+                        }
+                    }
+                    if (predictNextPositionY - j >= 0)
+                    {
+                        if (
+                            predictNextPositionX < tileWidth
+                            && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)]
+                            .GetComponent<TileController>().Heightlvl <= statData.Jump
+                            )
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
+                        }
+                        if (
+                            onWalkingUnit.GetComponent<UnitController>().positionX - i >= 0
+                             && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY - j)]
+                            .GetComponent<TileController>().Heightlvl <= statData.Jump
+                            )
+                        {
+                            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, onWalkingUnit.GetComponent<UnitController>().positionX - i, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
+                        }
+                    }
+                }
+                  
                 }
                 predictNextPositionX++;
 

@@ -12,5 +12,6 @@
     "hunterRank":0,
     "hunterCLass":0,
     "abnormalStatus":0,
-    "move":3
+    "move":3,
+    "jump":2
 }

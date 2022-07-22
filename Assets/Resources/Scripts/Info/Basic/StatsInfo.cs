@@ -19,6 +19,7 @@ public class StatsInfo
     [SerializeField] COMBAT_CLASS hunterClass;
     [SerializeField] ABNORMAL_STATUS abnormalStatus;
     [SerializeField] int move;
+    [SerializeField] int jump;
     public enum STATUS{
         HEALTHY,
         INJURED,
@@ -63,6 +64,12 @@ public class StatsInfo
     {
         set { move = value; }
         get { return move; }
+    }
+    public int Jump
+    {
+        set { jump = value; }
+        get { return jump; }
+        
     }
     public string UnitName
     {
@@ -118,6 +125,7 @@ public class StatsInfo
         set{moveType =value;}
         get{return moveType;}
     }
+
     public ABNORMAL_STATUS AbnormalStatus{
         set{abnormalStatus =value;}
         get{return abnormalStatus;}
