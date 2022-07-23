@@ -73,7 +73,7 @@ public class StateController : MonoBehaviour
                     cursor.SelectedUnit = cursor.SelectedTile.UnitOnTile.GetComponent<UnitController>();
                     GameObject onWalkingUnit = TileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile ;
                     if(!characterLock){
-                        onWalkingUnit.GetComponent<UnitController>().findMovableTile(onWalkingUnit,tileMap,tileMapData.width,tileMapData.depth);    
+                        onWalkingUnit.GetComponent<UnitController>().findMovableTile(tileMap,tileMapData.width,tileMapData.depth);    
                         characterLock = true;
                     }
                     else if(characterLock){
