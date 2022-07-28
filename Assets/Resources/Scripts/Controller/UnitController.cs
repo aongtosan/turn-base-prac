@@ -57,15 +57,8 @@ public class UnitController : MonoBehaviour
             positionY = initPositionY;
     }
     public void teleportToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
-            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().IsUnitOnTile = false;
-            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.SelectedUnit.PositionX,cursor.SelectedUnit.PositionY)].GetComponent<TileController>().UnitOnTile = null;
-            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().IsUnitOnTile = true;
-            tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].GetComponent<TileController>().UnitOnTile =  onWalkingUnit   ;
-            onWalkingUnit.GetComponent<UnitController>().PositionX = cursor.PositionX;
-            onWalkingUnit.GetComponent<UnitController>().PositionY = cursor.PositionY;
-            onWalkingUnit.transform.parent = tileMap[string.Format(TileEnum.ID_PATTERN_TILE,cursor.PositionX,cursor.PositionY)].transform;
-            onWalkingUnit.transform.localPosition = new Vector3 (0,0.75f,0);
-    
+        pathNode.Add(new Tile(cursor.PositionX, cursor.PositionY));
+        StartCoroutine(delayMovement(onWalkingUnit, tileMap, tileInfo));
     }
     public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("walk");     
@@ -99,7 +92,7 @@ public class UnitController : MonoBehaviour
             }
             moveComplete = true;
             clearTilesState(tileMap,tileInfo.width,tileInfo.depth);
-            
+           
     
     }
     public void findMovableTile( Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
@@ -115,10 +108,12 @@ public class UnitController : MonoBehaviour
                         if (predictNextPositionX < tileWidth)
                         {
                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
+                            possibleNode.Add(new Tile(predictNextPositionX, predictNextPositionY + j));
                         }
                         if (positionX - i >= 0)
                         {
                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
+                            possibleNode.Add(new Tile(positionX - i, predictNextPositionY + j));
                         }
                     }
                     if (predictNextPositionY - j >= 0)
@@ -208,11 +203,12 @@ public class UnitController : MonoBehaviour
         
           foreach(Tile t in pathNode){
             yield return new WaitForSeconds(0.2f);
-            Debug.Log(t.getLocation());
+           //
+           //Debug.Log(t.getLocation());
             moveToTile(onWalkingUnit, t, tileMap, tileInfo);
         }
         pathNode.Clear();
-
+        possibleNode.Clear();
 
     }
     public int PositionX{
