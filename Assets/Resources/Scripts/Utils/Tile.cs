@@ -3,7 +3,11 @@ using UnityEngine;
 public class Tile{
    public int x;
    public int y;
-   public Tile (int x,int y){
+   public Tile onTopTile;
+   public Tile onDownTile;
+   public Tile onLeftTile;
+   public Tile onRightTile;
+    public Tile (int x,int y){
     this.x = x;
     this.y = y;
    }
