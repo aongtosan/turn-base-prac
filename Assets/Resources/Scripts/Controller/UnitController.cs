@@ -96,97 +96,14 @@ public class UnitController : MonoBehaviour
            
     
     }
-    public void findMovableTile( Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){
-        /* int predictNextPositionX = positionX;//up
-         int predictNextPositionY = positionY;//right
-         for(int i = 0; i<=statData.Move;i++){      
-                 if(predictNextPositionX<tileWidth) tileMap[string.Format(TileEnum.ID_PATTERN_TILE,predictNextPositionX,predictNextPositionY)].GetComponent<TileController>().IsWalkAble=true;
-                 for(int j=0;j<=statData.Move-i;j++ ){
-                 if(statData.MOVETYPE != StatsInfo.MOVE_TYPE.WALK)
-                 {
-                     if (predictNextPositionY + j < tileDepth)
-                     {
-                         if (predictNextPositionX < tileWidth)
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(predictNextPositionX, predictNextPositionY + j));
-                         }
-                         if (positionX - i >= 0)
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(positionX - i, predictNextPositionY + j));
-                         }
-                     }
-                     if (predictNextPositionY - j >= 0)
-                     {
-                         if (predictNextPositionX < tileWidth)
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(predictNextPositionX, predictNextPositionY - j));
-                         }
-                         if (positionX - i >= 0)
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(positionX - i, predictNextPositionY - j));
-                         }
-                     }
-                 }
-                 else
-                 {
-                     if (predictNextPositionY + j < tileDepth)
-                     {
-                         if (predictNextPositionX < tileWidth
-                             && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)]
-                             .GetComponent<TileController>().Heightlvl<= statData.Jump
-                             )
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(predictNextPositionX, predictNextPositionY + j));
-                         }
-                         if (
-                             positionX - i >= 0
-                             && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY + j)]
-                             .GetComponent<TileController>().Heightlvl <= statData.Jump
-                             )
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY + j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(positionX - i, predictNextPositionY + j));
-                         }
-                     }
-                     if (predictNextPositionY - j >= 0)
-                     {
-                         if (
-                             predictNextPositionX < tileWidth
-                             && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)]
-                             .GetComponent<TileController>().Heightlvl <= statData.Jump
-                             )
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, predictNextPositionX, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(predictNextPositionX, predictNextPositionY - j));
-                         }
-                         if (
-                              positionX - i >= 0
-                              && tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY - j)]
-                             .GetComponent<TileController>().Heightlvl <= statData.Jump
-                             )
-                         {
-                             tileMap[string.Format(TileEnum.ID_PATTERN_TILE, positionX - i, predictNextPositionY - j)].GetComponent<TileController>().IsWalkAble = true;
-                             possibleTile.Add(new Tile(positionX - i, predictNextPositionY - j));
-                         }
-                     }
-                 }
-
-                 }
-                 predictNextPositionX++;
-
-         }*/
+    public void findMovableTile( Dictionary<string , GameObject> tileMap,int tileWidth,int tileDepth){//-- commit remove old find movable tile
         getPossibleTile(tileWidth, tileDepth , StatData.Move , new Tile(positionX,positionY),tileMap);
-        /*foreach (Tile t in possibleTile.Distinct().ToList())
+        foreach (Tile t in possibleTile.Distinct().ToList())
                {
                    tileMap[string.Format(TileEnum.ID_PATTERN_TILE, t.x, t.y)].GetComponent<TileController>().IsWalkAble = true;
                    Debug.Log(t.getLocation());
-               }*/
-        StartCoroutine(delayAnimation(tileMap));
+               }
+        //StartCoroutine(delayAnimation(tileMap));
         //Debug.Log(possibleTile.Distinct().ToList().Count);
 
     }
@@ -327,7 +244,7 @@ public class UnitController : MonoBehaviour
     {
             foreach (Tile t in possibleTile)
             {
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(0.001f);
                 tileMap[string.Format(TileEnum.ID_PATTERN_TILE, t.x, t.y)].GetComponent<TileController>().IsWalkAble = true;
                 Debug.Log(t.getLocation());
             }
