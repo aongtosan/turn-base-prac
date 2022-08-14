@@ -32,7 +32,7 @@ public class StateController : MonoBehaviour
         playableUnit = unitList.UnitList;
  
         foreach(GameObject playUnit in playableUnit){//init position
-             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,0,3);
+             playUnit.GetComponent<UnitController>().initUnitPositionTile(playUnit,tileMap,3,3);
         } 
     }
 
