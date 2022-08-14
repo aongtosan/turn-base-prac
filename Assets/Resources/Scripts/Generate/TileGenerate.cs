@@ -21,8 +21,14 @@ public class TileGenerate : MonoBehaviour
        
 
     }
+    private void Update()
+    {
+        //tileMap.Clear();
+        //tileMap = new Dictionary<string, GameObject>();
+        //tileMap = new Dictionary<string, GameObject>(createHillTile(width, depth, height, hillPercentage, treasurePile));
+    }
 
-  public Dictionary<string, GameObject> createHillTile(int widht,int depth,int limitHeight,int percentageHill,int treasureCount)
+    public Dictionary<string, GameObject> createHillTile(int widht,int depth,int limitHeight,int percentageHill,int treasureCount)
     {
 
         tilePrefabs = Resources.Load("Prefabs/tile") as GameObject ;

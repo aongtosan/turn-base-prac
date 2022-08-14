@@ -10,6 +10,7 @@ public class TileController : MonoBehaviour
     bool isCursorSelect;
     bool isCursorHover;
     bool isUnitOnTile;
+    bool isAttackArea;
     GameObject unitOntile;
     GameObject chestPrefab;
 
@@ -47,6 +48,11 @@ public class TileController : MonoBehaviour
         {
             Material tileColor = GetComponent<Renderer>().material;
             tileColor.color = new Color32(41, 81, 243, 1);
+        }
+        else if (isAttackArea)
+        {
+            Material tileColor = GetComponent<Renderer>().material;
+            tileColor.color = new Color32(255, 0, 0, 1);
         }
         else if (!isCursorHover)
         {
@@ -104,6 +110,11 @@ public class TileController : MonoBehaviour
     {
         get { return isUnitOnTile; }
         set { isUnitOnTile = value; }
+    }
+    public bool IsAttackArea
+    {
+        get { return isAttackArea; }
+        set { isAttackArea = value; }
     }
     public int Heightlvl
     {
