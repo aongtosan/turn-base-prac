@@ -127,7 +127,7 @@ public class UnitController : MonoBehaviour
         else
         {
            //if (t.x >=0 && t.y >=0) 
-                tileMap[string.Format(TileEnum.ID_PATTERN_TILE, t.x, t.y)].GetComponent<TileController>().IsWalkAble = flag;
+            tileMap[string.Format(TileEnum.ID_PATTERN_TILE, t.x, t.y)].GetComponent<TileController>().IsWalkAble = flag;
             setMoveAbleTile(t.onTopTile,tileMap,flag);
             setMoveAbleTile(t.onRightTile, tileMap,flag);   
             setMoveAbleTile(t.onLeftTile, tileMap, flag);
@@ -192,7 +192,7 @@ public class UnitController : MonoBehaviour
         else
         {
             moveCount--;
-            if (statData.MOVETYPE == StatsInfo.MOVE_TYPE.FLY)
+            if (statData.MOVETYPE != StatsInfo.MOVE_TYPE.WALK)
             {
                 if (currentTile.y + 1 >= 0 && currentTile.y + 1 < tileDepth)
                     currentTile.onTopTile = new Tile(currentTile.x, currentTile.y + 1);
@@ -205,7 +205,25 @@ public class UnitController : MonoBehaviour
             }
             else
             {
-
+                if (currentTile.y + 1 >= 0 && currentTile.y + 1 < tileDepth &&
+                    tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x,currentTile.y)].GetComponent<TileController>().Heightlvl+statData.Jump 
+                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y+1)].GetComponent<TileController>().Heightlvl)
+                    currentTile.onTopTile = new Tile(currentTile.x, currentTile.y + 1);
+                if (currentTile.x + 1 >= 0 && currentTile.x + 1 < tileWidht &&
+                     tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
+                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x + 1, currentTile.y )].GetComponent<TileController>().Heightlvl
+                    )
+                    currentTile.onRightTile = new Tile(currentTile.x + 1, currentTile.y);
+                if (currentTile.x - 1 >= 0 && currentTile.x < tileWidht &&
+                     tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
+                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x-1, currentTile.y)].GetComponent<TileController>().Heightlvl
+                    )
+                    currentTile.onLeftTile = new Tile(currentTile.x - 1, currentTile.y);
+                if (currentTile.y - 1 >= 0 && currentTile.y < tileDepth &&
+                     tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
+                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y - 1)].GetComponent<TileController>().Heightlvl
+                    )
+                    currentTile.onDownTile = new Tile(currentTile.x, currentTile.y - 1);
             }
            
 
