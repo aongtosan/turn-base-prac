@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
@@ -69,7 +68,7 @@ public class UnitController : MonoBehaviour
     public void walkToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
         Debug.Log("walk");
         //pathTile = findingPath(positionX, positionY, cursor.PositionX, cursor.PositionY, pathTile);
-        getWalkPath(cursor, positionX, positionY,masterTile, tileMap);
+        getWalkPath(cursor, positionX, positionY,masterTile);
         setMoveAbleTile(masterTile, tileMap, false);
     }
     public void flyToTile(GameObject onWalkingUnit,CursorController cursor,Dictionary<string,GameObject> tileMap,TileGenerate tileInfo){
@@ -134,9 +133,10 @@ public class UnitController : MonoBehaviour
             setMoveAbleTile(t.onDownTile, tileMap, flag);
         }
     }
-    public void getWalkPath(CursorController cursor, int positionX, int positionY, Tile tile, Dictionary<string, GameObject> tileMap)
+    public void getWalkPath(CursorController cursor, int positionX, int positionY, Tile tile)
     {
             //Debug.Log(tile.getLocation());
+
       /*  if (tile.onTopTile != null)
         {
             Debug.Log(tile.onTopTile.getLocation());
@@ -184,7 +184,6 @@ public class UnitController : MonoBehaviour
 
         if (moveCount == 0)
         {
-            //Debug.Log(currentTile.getLocation());
             return;
         }
         if (currentTile == null) return;
@@ -202,35 +201,65 @@ public class UnitController : MonoBehaviour
                     currentTile.onLeftTile = new Tile(currentTile.x - 1, currentTile.y);
                 if (currentTile.y - 1 >= 0 && currentTile.y < tileDepth)
                     currentTile.onDownTile = new Tile(currentTile.x, currentTile.y - 1);
+
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onTopTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onRightTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onLeftTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onDownTile, tileMap);
             }
             else
             {
+                //up   
                 if (currentTile.y + 1 >= 0 && currentTile.y + 1 < tileDepth &&
-                    tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x,currentTile.y)].GetComponent<TileController>().Heightlvl+statData.Jump 
-                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y+1)].GetComponent<TileController>().Heightlvl)
+                    tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
+                    >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y + 1)].GetComponent<TileController>().Heightlvl)
+                {
                     currentTile.onTopTile = new Tile(currentTile.x, currentTile.y + 1);
+                    // getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onTopTile, tileMap);
+                  //check new condition mark flag tag ignore
+
+                } 
+            //right    
                 if (currentTile.x + 1 >= 0 && currentTile.x + 1 < tileWidht &&
                      tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
                     >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x + 1, currentTile.y )].GetComponent<TileController>().Heightlvl
                     )
+                {
                     currentTile.onRightTile = new Tile(currentTile.x + 1, currentTile.y);
-                if (currentTile.x - 1 >= 0 && currentTile.x < tileWidht &&
+                    // getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onRightTile, tileMap);
+                    
+
+                }
+                    
+             //left   
+                if (currentTile.x - 1 >= 0 && currentTile.x-1 < tileWidht &&
                      tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
                     >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x-1, currentTile.y)].GetComponent<TileController>().Heightlvl
                     )
+                {
                     currentTile.onLeftTile = new Tile(currentTile.x - 1, currentTile.y);
-                if (currentTile.y - 1 >= 0 && currentTile.y < tileDepth &&
+                    // getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onLeftTile, tileMap);
+                   
+
+                }
+                   
+             //down   
+                if (currentTile.y - 1 >= 0 && currentTile.y-1 < tileDepth &&
                      tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y)].GetComponent<TileController>().Heightlvl + statData.Jump
                     >= tileMap[string.Format(TileEnum.ID_PATTERN_TILE, currentTile.x, currentTile.y - 1)].GetComponent<TileController>().Heightlvl
                     )
+                {
                     currentTile.onDownTile = new Tile(currentTile.x, currentTile.y - 1);
+                    //getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onDownTile, tileMap);
+                    
+
+                }
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onTopTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onRightTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onLeftTile, tileMap);
+                getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onDownTile, tileMap);
             }
            
-
-            getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onTopTile, tileMap);
-            getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onRightTile, tileMap);
-            getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onLeftTile, tileMap);
-            getPossibleTile(tileWidht, tileDepth, moveCount, currentTile.onDownTile, tileMap);
         }          
 
     }
